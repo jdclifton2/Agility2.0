@@ -138,7 +138,7 @@ class Card extends React.Component {
 
         var csrftoken = this.getCookie('csrftoken');
 
-        var url = 'http://localhost:8000/api/cards'
+        var url = 'http://localhost:8000/api/cards/'
 
         if(this.state.editing === true) {
             url = `http://localhost:8000/api/cards/${this.state.activeItem.id}/`

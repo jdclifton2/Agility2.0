@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'kanbanboard',
     'rest_framework',
+
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'Agility.urls'
@@ -115,7 +120,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 

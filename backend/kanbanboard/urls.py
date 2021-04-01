@@ -1,18 +1,14 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from kanbanboard.views import BoardList, BoardDetail, CardList, ColumnDetail, CardDetail, ColumnList
+from kanbanboard.api import BoardViewSet, CardViewSet, UserViewSet, ColumnViewSet
+from rest_framework import routers
 
-urlpatterns = [
-    path('boards', BoardList.as_view()),
-    path('api/cards', CardList.as_view()),
-    path('columns/', ColumnList.as_view()),
-    #path('/members/', MemberList.as_view()),
-    path('boards/<int:pk>', BoardDetail.as_view()),
-    path('cards/<int:pk>', CardDetail.as_view()),
-    path('columns/<int:pk>', ColumnDetail.as_view()),
-    #path('/members/<int:pk>', MemberDetail.as_view()),
+router = routers.DefaultRouter()
+router.register('api/boards', BoardViewSet, 'boards')
+router.register('api/cards', CardViewSet, 'cards')
+router.register('api/users', UserViewSet, 'users')
+router.register('api/columns', ColumnViewSet, 'columns')
 
 
-    #path('/<int:pk>/highlight', board_highlight.as_view())
-
-]
+urlpatterns = router.urls
