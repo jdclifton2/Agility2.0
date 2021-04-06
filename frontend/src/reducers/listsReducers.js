@@ -3,6 +3,7 @@ import { CONSTANTS } from "../actions";
 let listID = 2;
 let cardID = 5;
 
+console.log("Fetching data");
 
 const initialState = [
     {
