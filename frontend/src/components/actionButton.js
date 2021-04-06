@@ -6,7 +6,7 @@ import Textarea from 'react-textarea-autosize';
 import { connect } from "react-redux";
 import { addList, addCard } from "../actions";
 
-class TrelloActionButton extends React.Component {
+class ActionButton extends React.Component {
 
     state = {
         formOpen: false
@@ -152,4 +152,4 @@ const styles = {
     }
 }
 
-export default connect() (TrelloActionButton);
+export default connect() (ActionButton);
