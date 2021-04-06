@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import { Draggable } from "react-beautiful-dnd";
 
-const TrelloCard = ({ text, id, index }) => {
+const CardItem = ({ text, id, index }) => {
     return (
         <Draggable draggableId={String(id)} index={index}>
         {provided => (
@@ -34,4 +34,4 @@ const styles = {
     }
 }
 
-export default TrelloCard;
+export default CardItem;
