@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
                 ('subtask_id', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='kanbanboard.ToDoItem')),
             ],
             options={
-                'verbose_name': 'Card',
+                'verbose_name': 'OldCard',
                 'verbose_name_plural': 'Cards',
             },
         ),

@@ -50,7 +50,7 @@ class Column(models.Model):
 
 class Card(models.Model):
     class Meta:
-        verbose_name = 'Card'
+        verbose_name = 'OldCard'
         verbose_name_plural = 'Cards'
     
     column = models.ForeignKey(Column, on_delete=models.CASCADE, null=True)

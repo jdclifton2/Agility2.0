@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Card',
+            name='OldCard',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=128)),
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('is_done', models.BooleanField(default=False)),
             ],
             options={
-                'verbose_name': 'Card',
+                'verbose_name': 'OldCard',
                 'verbose_name_plural': 'Cards',
             },
         ),
@@ -46,6 +46,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='card',
             name='subtask_id',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='kanbanboard.Card'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='kanbanboard.OldCard'),
         ),
     ]

@@ -11,7 +11,7 @@ class BoardSerializer(serializers.ModelSerializer):
 class ColumnSerializer(serializers.ModelSerializer):
     class Meta:
         model = Column
-        fields = ['id', 'dashboard', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'dashboard', 'created_at', 'updated_at']
 
 
 class UserSerializer(serializers.ModelSerializer):

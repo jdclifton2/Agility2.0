@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
+import Card from '@material-ui/core/Card';
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
 
 /**
- * This Class will act as our Card component. It will retrieve Card information
+ * This Class will act as our OldCard component. It will retrieve OldCard information
  * from the django API and render cards on the frontend.
  */
-class Card extends React.Component {
+class OldCard extends React.Component {
     /** Constructor to represent a card in JSON form. **/
     constructor(props) {
         super(props);
@@ -187,9 +190,27 @@ class Card extends React.Component {
      * @returns {JSX.Element}
      */
     render() {
+        const styles = {
+            cardContainer: {
+                marginBottom: 8
+            }
+        }
+
+        console.log(this.state.cardList);
         let cards = this.state.cardList;
         let self = this;
         return (
+            // <Card style={styles.cardContainer}>
+            //     <CardContent>
+            //         <Typography gutterBottom>
+            //             {cards.title}
+            //         </Typography>
+            //     </CardContent>
+            // </Card>
+
+
+
+
             <div className="container">
 
                 <div id="task-container">
@@ -209,7 +230,7 @@ class Card extends React.Component {
                                 </div>
 
                                 <div style={{flex: 1}}>
-                                    <input id="submit" className="btn" value="Create Card" type="submit"/>
+                                    <input id="submit" className="btn" value="Create OldCard" type="submit"/>
                                 </div>
                             </div>
                         </form>
@@ -245,4 +266,4 @@ class Card extends React.Component {
         )
     }
 }
-export default Card
+export default OldCard;
