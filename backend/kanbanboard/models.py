@@ -77,3 +77,13 @@ class Card(models.Model):
         return f'{self.id}'
 
 
+class Project(models.Model):
+
+    
+    title = models.CharField(max_length=128)
+    description = models.TextField(blank=True)
+    label = models.CharField(max_length=128, blank=True)
+
+
+    def __str__(self):
+        return f'{self.id}'
