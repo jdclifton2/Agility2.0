@@ -1,25 +1,24 @@
-import React from "react";
-import CardItem from "./CardItem";
-import ActionButton from "./actionButton";
+import React from 'react';
 import { Droppable } from "react-beautiful-dnd";
+import CardItem from "./CardItem"
+import ActionButton from "./ActionButton";
 
-const List = ({ title, cards, listID}) => {
+function List({ title, cards, listID}) {
+    //Temporary var
     return (
         <Droppable droppableId={String(listID)}>
-            {(provided) => (
+              {(provided) => (
                 <div
-                {...provided.droppableProps}
                 ref={provided.innerRef}
+                {...provided.droppableProps}
                 style={styles.container}>
-                    <h4 style={styles.title}>{title}</h4>
-                    { cards.map((card, index) =>
-                    <CardItem key={card.id} index={index} text={card.text} id={card.id}/>
-                    )}
-                    <ActionButton listID={listID}/>
-                    {provided.placeholder}
+                <h4 style={styles.title}>{title}</h4>
+                { cards.filter(card => card.column === listID).map((card, index) =>
+                <CardItem title={card.title} description={card.description} id = {card.id} index={index} key={card.id}/>
+                )}
+                {provided.placeholder}
                 </div>
             )}
-
         </Droppable>
     );
 };
