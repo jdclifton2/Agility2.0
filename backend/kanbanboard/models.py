@@ -2,6 +2,28 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Member(models.Model):
+    """This class models a member of the application.
+
+
+    Attributes
+    ----------
+    user:
+        Djangos built in user authentication class. 
+    data : str
+        Any data that needs to be stored for the member.
+    created_at : DateTime
+        When the member was created.
+    updated_at : DateTime
+        When the member was updated.
+    avatar : ImageField
+        the members avatar.
+
+    Methods
+    -------
+    __str__(self)
+        ToString method.
+    """
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     data = models.CharField(max_length=2048, null=True)
 
@@ -19,11 +41,30 @@ class Member(models.Model):
 
 
 class Board(models.Model):
+    """This class models a board in the application.
+
+
+    Attributes
+    ----------
+    title: str
+        The title of the board.
+    owner : Member
+        The member that owns the board.
+    created_at : DateTime
+        When the member was created.
+    updated_at : DateTime
+        When the member was updated.
+    is_public : Boolean
+        If the board is public.
+
+    Methods
+    -------
+    __str__(self)
+        ToString method.
+    """
     title = models.CharField(max_length=128)
     owner = models.ForeignKey(Member, related_name='members',
                               on_delete=models.CASCADE)
-    #owner = models.ForeignKey(Member, on_delete=models.CASCADE)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True, verbose_name='LAST UPDATE')
 
@@ -34,9 +75,25 @@ class Board(models.Model):
 
 
 class Column(models.Model):
-    class Meta:
-        verbose_name = 'List'
-        verbose_name_plural = 'Lists'
+    """This class models a column/list of tasks contained within a board.
+
+    Attributes
+    ----------
+    title: str
+        The title of the board.
+    dashboard: board
+        The board the list is contained within.
+    created_at : DateTime
+        When the member was created.
+    updated_at : DateTime
+        When the member was updated.
+
+    Methods
+    -------
+    __str__(self)
+        ToString method.
+    """
+
     dashboard = models.ForeignKey(Board, on_delete=models.CASCADE, null=True)
 
     title = models.CharField(max_length=128)
@@ -44,14 +101,50 @@ class Column(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
+        
+    class Meta:
+        verbose_name = 'List'
+        verbose_name_plural = 'Lists'
+
     def __str__(self):
         return f'{self.title}'
 
+        
+
 
 class Card(models.Model):
-    class Meta:
-        verbose_name = 'OldCard'
-        verbose_name_plural = 'Cards'
+    """This class models a card of tasks contained within a column/list.
+
+    Attributes
+    ----------
+    column: column
+        The column the cards are contained within.
+    title: str
+        The title of the board.
+    description: str
+        A description of the card. 
+    start_date: DateTime
+        When the task is started.  
+    due_date: DateTime
+        When the task is due. 
+    created_at : DateTime
+        When the member was created.
+    updated_at : DateTime
+        When the member was updated.
+    time_estimate_hours : int
+        How long the task is estimate to take in hours.
+    sub_task_id : card
+        A subtask for this card.
+    is_done : boolean
+        If the task is done.
+
+
+    Methods
+    -------
+    __str__(self)
+        ToString method.
+    """
+    
     
     column = models.ForeignKey(Column, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=128)
@@ -72,13 +165,32 @@ class Card(models.Model):
 
     is_done = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = 'Card'
+        verbose_name_plural = 'Cards'
+
 
     def __str__(self):
         return f'{self.id}'
 
 
 class Project(models.Model):
+    """This class models a project which contains boards.
 
+    Attributes
+    ----------
+    title: str
+        The title of the project.
+    description: str
+        The description of the project.
+    label: str
+        Labels for the project.
+
+    Methods
+    -------
+    __str__(self)
+        ToString method.
+    """
     
     title = models.CharField(max_length=128)
     description = models.TextField(blank=True)
