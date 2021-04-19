@@ -45,16 +45,33 @@ function App() {
     return data;
   }
 
-  const onDragEnd = result => {
+  const onDragEnd = (result) => {
     console.log(result);
+    console.log("Lists")
     console.log(lists)
+    console.log("Cards")
     console.log(cards)
+    //prevent app from crashing if card dragged in non droppable
+    if(!result.destination) return;
     const oldCards = Array.from(cards)
-    const [reorderedCard] = oldCards.splice(result.source.index, 1);
-    oldCards.splice(result.destination.index, 0, reorderedCard);
+    const col = result.source.droppableID;
+  //const copiedItems = [...col.items];
+    // remove the card 
+    console.log("Source index " + result.source.index)
+    const [removedCard] = oldCards.splice(result.source.index, 1);
+    console.log(removedCard)
+    removedCard.index = result.source.index
+    // removedCard.column = col;
+    //console.log(cards)
+    console.log("Destination index " + result.destination.index)
 
+    const newCards = oldCards.splice(result.destination.index, 0, removedCard);
+
+    //setLists([oldCards]);
+    console.log(oldCards)
     setCards(oldCards)
   }
+  
 
   return (
     <DragDropContext onDragEnd= {onDragEnd} >
@@ -65,7 +82,7 @@ function App() {
           <List title={ list.title } cards={cards} listID={list.id} key={list.id}/>
         )}
       </div>
-      <ActionButton />
+
       </div>
     </DragDropContext>
   );  

@@ -17,6 +17,7 @@ function List({ title, cards, listID}) {
                 <CardItem title={card.title} description={card.description} id = {card.id} index={index} key={card.id}/>
                 )}
                 {provided.placeholder}
+                <ActionButton />
                 </div>
             )}
         </Droppable>
