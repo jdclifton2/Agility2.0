@@ -18,13 +18,13 @@ function CardItem({title, description, id, index}) {
             return card.id !== id;
         })
 
-        console.log("NEW STATE")
-        console.log(newState);
+        //console.log("NEW STATE")
+        //console.log(newState);
 
         fetch(`http://localhost:8000/api/cards/${id}/`, { method: 'DELETE'})
             .then(() => setCards(newState))
 
-        console.log(cards)
+        //console.log(cards)
     }
 
     return (
@@ -69,7 +69,7 @@ const styles = {
         position: "relative",
         left: "257px",
         bottom: "20px",
-        fontSize: '20px'
+        fontSize: '20px',
     }
 
 

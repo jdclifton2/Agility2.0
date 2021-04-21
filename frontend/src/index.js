@@ -4,13 +4,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { CardProvider } from './CardContext';
+import {ListsProvider} from "./ListContext";
 
 
 ReactDOM.render(
     <CardProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+        <ListsProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </ListsProvider>
     </CardProvider>,
   document.getElementById('root')
 );

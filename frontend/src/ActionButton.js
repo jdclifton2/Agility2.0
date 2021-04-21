@@ -12,7 +12,6 @@ function ActionButton({listID}) {
     const [state, setState] = useState({modalOpen: false})
     const modalClosed = () => setState({modalOpen: false})
 
-
     return (
         <div>
             <div
