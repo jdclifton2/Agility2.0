@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { CardProvider } from './CardContext';
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <CardProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </CardProvider>,
   document.getElementById('root')
 );
 

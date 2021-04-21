@@ -1,10 +1,29 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Droppable } from "react-beautiful-dnd";
 import CardItem from "./CardItem"
 import ActionButton from "./ActionButton";
+import {CardContext} from "./CardContext";
 
+function List({ title, listID}) {
+
+    const[cards, setCards] = useContext(CardContext);
+
+    console.log("These are the cards in the list");
+    console.log(cards);
+
+    const handleCallBack = (childData) => {
+        console.log("Data made it back to the parent: ")
+        console.log(childData)
+
+        cards.append(childData)
+    }
+
+<<<<<<< HEAD
 function List({ title, cards, listID}) {
 
+=======
+    //Temporary var
+>>>>>>> 2722072a43aae26b762e6e84d31a4a8c3c7937a3
     return (
         <Droppable droppableId={String(listID)}>
               {(provided) => (
@@ -13,20 +32,30 @@ function List({ title, cards, listID}) {
                 {...provided.droppableProps}
                 style={styles.container}>
                 <h4 style={styles.title}>{title}</h4>
+<<<<<<< HEAD
                 {cards.map(
                     (card, index) => {
                         if(card.column === listID)
                             return (<CardItem title={card.title} description={card.description} 
                             id = {card.id} index={index} key={card.id}/>);
+=======
+                    {cards.map(
+                    (card, index) => {
+                        if(card.column === listID)
+                            return (<CardItem title={card.title} description={card.description}
+                            id = {card.id} index={index} key={card.id}/>);
+                        // Default return. Should be unreachable.
+                        return null;
+>>>>>>> 2722072a43aae26b762e6e84d31a4a8c3c7937a3
                 }
                 )}
                 {provided.placeholder}
-                <ActionButton />
+                <ActionButton listID={listID} parentCallback={handleCallBack}/>
                 </div>
             )}
         </Droppable>
     );
-};
+}
 
 const styles = {
     container: {
