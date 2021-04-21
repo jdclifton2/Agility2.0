@@ -3,7 +3,18 @@ import { Droppable } from "react-beautiful-dnd";
 import CardItem from "./CardItem"
 import ActionButton from "./ActionButton";
 
-function List({ title, cards, listID}) {
+function List({ title, cards, listID, updatestate}) {
+
+    console.log("These are the cards in the list");
+    console.log(cards);
+
+    const handleCallBack = (childData) => {
+        console.log("Data made it back to the parent: ")
+        console.log(childData)
+
+        cards.append(childData)
+    }
+
     //Temporary var
     return (
         <Droppable droppableId={String(listID)}>
@@ -17,7 +28,7 @@ function List({ title, cards, listID}) {
                 <CardItem title={card.title} description={card.description} id = {card.id} index={index} key={card.id}/>
                 )}
                 {provided.placeholder}
-                <ActionButton />
+                <ActionButton updatestate1={updatestate} listID={listID} parentCallback={handleCallBack}/>
                 </div>
             )}
         </Droppable>

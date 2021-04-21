@@ -71,6 +71,12 @@ function App() {
     console.log(oldCards)
     setCards(oldCards)
   }
+
+  const update = (nextState) => {
+    console.log("YOU'RE IN THE UPDATE METHOD IN APP")
+    setCards([...cards, nextState]);
+  }
+
   
 
   return (
@@ -79,7 +85,7 @@ function App() {
         <h1 style={styles.titleContainer}>Agility 2.0</h1>
         <div style={styles.listsContainer}>
         { lists.map(list => 
-          <List title={ list.title } cards={cards} listID={list.id} key={list.id}/>
+          <List updatestate={update} title={ list.title } cards={cards} listID={list.id} key={list.id}/>
         )}
       </div>
 
@@ -105,5 +111,4 @@ const styles = {
   }
 
 }
-
 export default App;

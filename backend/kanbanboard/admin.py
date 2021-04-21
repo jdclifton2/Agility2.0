@@ -123,7 +123,7 @@ class CardAdmin(admin.ModelAdmin):
     #a way of segmenting the different fields
     fieldsets = (
         ('Main', {
-            'fields':('description', 'comment', ('label', 'column'))
+            'fields':('title', 'description', 'comment', ('label', 'column'))
         }),
         ('Estimations', {
             'fields': (('start_date', 'due_date'), 'time_estimate_hours'),
