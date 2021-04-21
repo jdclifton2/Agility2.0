@@ -54,29 +54,42 @@ function App() {
 
   const onDragEnd = (result) => {
     console.log(result);
-    console.log("Lists")
-    console.log(lists)
-    console.log("Cards")
-    console.log(cards)
+    console.log("Lists");
+    console.log(lists);
+    console.log("Cards");
+    console.log(cards);
     //prevent app from crashing if card dragged in non droppable
     if(!result.destination) return;
-    const oldCards = Array.from(cards)
-    const col = result.source.droppableID;
+
+    const oldCards = Array.from(cards);
+    console.log("Old cards");
+    console.log(oldCards);
+    const newCol = result.destination.droppableId;
+    console.log("col");
+    console.log(newCol);
+
+    //const colCards = oldCards.filter(card => card.column == col);
   //const copiedItems = [...col.items];
     // remove the card
-    console.log("Source index " + result.source.index)
-    const [removedCard] = oldCards.splice(result.source.index, 1);
-    console.log(removedCard)
-    removedCard.index = result.source.index
-    // removedCard.column = col;
-    //console.log(cards)
-    console.log("Destination index " + result.destination.index)
+    console.log("Source index " + result.source.index);
+    console.log("Card to be removed ");
+    //console.log(oldCards[result.source.index])
+    //console.log(colCards)
 
-    const newCards = oldCards.splice(result.destination.index, 0, removedCard);
+    const [removedCard] = oldCards.splice(result.source.index, 1);
+    console.log(removedCard.column);
+    removedCard.column = Number(newCol);
+    console.log(removedCard);
+    //removedCard.index = result.source.index
+    //removedCard.column = col;
+    //console.log(cards)
+    //console.log("Destination index " + result.destination.index)
+
+    oldCards.splice(result.destination.index, 0, removedCard);
 
     //setLists([oldCards]);
-    console.log(oldCards)
-    setCards(oldCards)
+    console.log(oldCards);
+    setCards(oldCards);
   }
 
 

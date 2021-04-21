@@ -27,16 +27,22 @@ function List({ title, listID}) {
                 {...provided.droppableProps}
                 style={styles.container}>
                 <h4 style={styles.title}>{title}</h4>
-                    {cards.filter(card => card.column === listID).map((card, index) =>
-                    <CardItem title={card.title} description={card.description} id = {card.id} index={index} key={card.id}/>
-                    )}
+                    {cards.map(
+                    (card, index) => {
+                        if(card.column === listID)
+                            return (<CardItem title={card.title} description={card.description}
+                            id = {card.id} index={index} key={card.id}/>);
+                        // Default return. Should be unreachable.
+                        return null;
+                }
+                )}
                 {provided.placeholder}
                 <ActionButton listID={listID} parentCallback={handleCallBack}/>
                 </div>
             )}
         </Droppable>
     );
-};
+}
 
 const styles = {
     container: {

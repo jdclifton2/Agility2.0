@@ -15,7 +15,17 @@ function ActionButton({listID}) {
 
     return (
         <div>
-            <Button onClick={() => setState({modalOpen: true})}>Add Card</Button>
+            <div
+                onClick={() => setState({modalOpen: true})}
+                style = {{
+                    ...styles.openForButtonGroup,
+                    opacity: 1,
+                    color: "inherit",
+                    backgroundColor: "inherit"
+                }}>
+                <Icon>add</Icon>
+                <p style={{marginTop: '15px', marginLeft: '10px'}}>Add New Card</p>
+            </div>
 
             <AddCard
                 modalClosed={modalClosed}
@@ -25,7 +35,6 @@ function ActionButton({listID}) {
             />
         </div>
     )
-
 }
 
 //     const [state, setState] = useState({formOpen: false});
@@ -43,20 +52,8 @@ function ActionButton({listID}) {
 //         setState({text: e.target.value});
 //     }
 //
-//     const renderAddButton = () => {
-//         return (
-//             <div onClick={openForm}
-//             style = {{
-//                 ...styles.openForButtonGroup,
-//                 opacity: 1,
-//                 color: "inherit",
-//                 backgroundColor: "inherit"
-//             }}>
-//                 <Icon>add</Icon>
-//                 <p style={{marginTop: '15px', marginLeft: '10px'}}>Add New Card</p>
-//             </div>
-//         )
-//     }
+
+
 //
 //     const renderForm = () => {
 //         return (
@@ -102,21 +99,21 @@ function ActionButton({listID}) {
 //     return state.formOpen ? renderForm() : renderAddButton();
 // }
 //
-// const styles = {
-//     openForButtonGroup: {
-//         display: "flex",
-//         alignItems: "center",
-//         cursor: "pointer",
-//         borderRadius: 3,
-//         height: 36,
-//         width: 272,
-//         paddingLeft: 10
-//     },
-//     formButtonGroup: {
-//         marginTop: 8,
-//         display: "flex",
-//         alignItems: "center"
-//     }
-// }
+const styles = {
+    openForButtonGroup: {
+        display: "flex",
+        alignItems: "center",
+        cursor: "pointer",
+        borderRadius: 3,
+        height: 36,
+        width: 272,
+        paddingLeft: 10
+    },
+    formButtonGroup: {
+        marginTop: 8,
+        display: "flex",
+        alignItems: "center"
+    }
+}
 
 export default ActionButton;

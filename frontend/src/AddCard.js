@@ -22,15 +22,16 @@ function AddCard(props) {
             })
         };
         fetch('http://localhost:8000/api/cards/', requestOptions)
-            .then(response => response.json())
+            .then(response => response.json());
 
         const newCard = {title: event.target.title.value,
                         description: event.target.description.value,
                         comment: event.target.comment.value,
                         column: props.listID}
 
+        console.log("CARDS FROM API")
+        console.log(cards);
         setCards(prevCards => [...prevCards, newCard])
-
     }
 
     const handleOnClick = (card) => {
@@ -40,7 +41,7 @@ function AddCard(props) {
 
         console.log("THIS IS THE CARDS LIST INSIDE OF HANDLEONCLICK");
         console.log(cards)
-        setCards(prevCards => [...prevCards, card])
+        //setCards(prevCards => [...prevCards, card])
 
         console.log("THIS IS THE CARDS LIST AFTER ADDING")
         console.log(cards)
