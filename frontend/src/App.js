@@ -1,30 +1,37 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import List from "./List";
 import ActionButton from "./ActionButton";
 import { DragDropContext } from 'react-beautiful-dnd';
 
+import {CardContext, CardProvider} from './CardContext';
+import {ListContext, ListsProvider} from './ListContext';
+
 function App() {
-  const [cards, setCards] = useState([])
+  const [cards, setCards] = useContext(CardContext);
+  console.log("CARDS FROM CONTEXT IN APP")
+  console.log(cards);
 
-  useEffect(() => {
-    const getCards = async () => {
-      const cardsFromServer = await fetchCards()
-      setCards(cardsFromServer)
+  //const [cards, setCards] = useState([])
+  // useEffect(() => {
+  //   const getCards = async () => {
+  //     const cardsFromServer = await fetchCards()
+  //     setCards(cardsFromServer)
+  //
+  //     //console.log(cardsFromServer);
+  //   }
+  //
+  //   getCards()
+  // }, [])
+  //
+  // const fetchCards = async () => {
+  //   const res = await fetch('http://localhost:8000/api/cards/')
+  //   const data = await res.json()
+  //
+  //   return data;
+  // }
 
-      console.log(cardsFromServer);
-    }
-
-    getCards()
-  }, [])
-
-  const fetchCards = async () => {
-    const res = await fetch('http://localhost:8000/api/cards/')
-    const data = await res.json()
-
-    return data;
-  }
-
+  //const [lists, setLists] = useContext(ListContext);
   const [lists, setLists] = useState([])
 
   useEffect(() => {
@@ -56,7 +63,7 @@ function App() {
     const oldCards = Array.from(cards)
     const col = result.source.droppableID;
   //const copiedItems = [...col.items];
-    // remove the card 
+    // remove the card
     console.log("Source index " + result.source.index)
     const [removedCard] = oldCards.splice(result.source.index, 1);
     console.log(removedCard)
@@ -72,26 +79,20 @@ function App() {
     setCards(oldCards)
   }
 
-  const update = (nextState) => {
-    console.log("YOU'RE IN THE UPDATE METHOD IN APP")
-    setCards([...cards, nextState]);
-  }
-
-  
 
   return (
-    <DragDropContext onDragEnd= {onDragEnd} >
-      <div className="App">
-        <h1 style={styles.titleContainer}>Agility 2.0</h1>
-        <div style={styles.listsContainer}>
-        { lists.map(list => 
-          <List updatestate={update} title={ list.title } cards={cards} listID={list.id} key={list.id}/>
-        )}
-      </div>
+        <DragDropContext onDragEnd= {onDragEnd} >
+            <div className="App">
+              <h1 style={styles.titleContainer}>Agility 2.0</h1>
+              <div style={styles.listsContainer}>
+                {lists.map(list =>
+                  <List title={ list.title } cards={cards} listID={list.id} key={list.id}/>
+                )}
+            </div>
 
-      </div>
-    </DragDropContext>
-  );  
+            </div>
+        </DragDropContext>
+  );
 }
 
 const styles = {

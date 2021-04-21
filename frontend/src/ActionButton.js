@@ -8,7 +8,7 @@ import Textarea from 'react-textarea-autosize';
 import { Button, ButtonToolbar } from 'react-bootstrap';
 import AddCard from './AddCard';
 
-function ActionButton({listID, updatestate1}) {
+function ActionButton({listID}) {
     const [state, setState] = useState({modalOpen: false})
     const modalClosed = () => setState({modalOpen: false})
 
@@ -18,7 +18,6 @@ function ActionButton({listID, updatestate1}) {
             <Button onClick={() => setState({modalOpen: true})}>Add Card</Button>
 
             <AddCard
-                updatestate2={updatestate1}
                 modalClosed={modalClosed}
                 listID={listID}
                 show={state.modalOpen}

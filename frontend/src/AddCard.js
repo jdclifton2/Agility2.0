@@ -1,7 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
+import {CardContext} from "./CardContext";
 
 function AddCard(props) {
+
+    const [cards, setCards] = useContext(CardContext);
+    console.log("CARDS FROM CONTEXT IN ADDCARD!!!");
+    console.log(cards);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -19,13 +24,26 @@ function AddCard(props) {
         fetch('http://localhost:8000/api/cards/', requestOptions)
             .then(response => response.json())
 
-        handleOnClick(requestOptions.body)
+        const newCard = {title: event.target.title.value,
+                        description: event.target.description.value,
+                        comment: event.target.comment.value,
+                        column: props.listID}
+
+        setCards(prevCards => [...prevCards, newCard])
 
     }
 
     const handleOnClick = (card) => {
         props.modalClosed()
-        props.updatestate2(card)
+        console.log("THIS IS THE CARD WE ARE TRYING TO ADD")
+        console.log(card);
+
+        console.log("THIS IS THE CARDS LIST INSIDE OF HANDLEONCLICK");
+        console.log(cards)
+        setCards(prevCards => [...prevCards, card])
+
+        console.log("THIS IS THE CARDS LIST AFTER ADDING")
+        console.log(cards)
     }
 
     return (

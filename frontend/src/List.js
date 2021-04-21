@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Droppable } from "react-beautiful-dnd";
 import CardItem from "./CardItem"
 import ActionButton from "./ActionButton";
+import {CardContext} from "./CardContext";
 
-function List({ title, cards, listID, updatestate}) {
+function List({ title, listID}) {
+
+    const[cards, setCards] = useContext(CardContext);
 
     console.log("These are the cards in the list");
     console.log(cards);
@@ -24,11 +27,11 @@ function List({ title, cards, listID, updatestate}) {
                 {...provided.droppableProps}
                 style={styles.container}>
                 <h4 style={styles.title}>{title}</h4>
-                { cards.filter(card => card.column === listID).map((card, index) =>
-                <CardItem title={card.title} description={card.description} id = {card.id} index={index} key={card.id}/>
-                )}
+                    {cards.filter(card => card.column === listID).map((card, index) =>
+                    <CardItem title={card.title} description={card.description} id = {card.id} index={index} key={card.id}/>
+                    )}
                 {provided.placeholder}
-                <ActionButton updatestate1={updatestate} listID={listID} parentCallback={handleCallBack}/>
+                <ActionButton listID={listID} parentCallback={handleCallBack}/>
                 </div>
             )}
         </Droppable>
