@@ -18,12 +18,7 @@ function List({ title, listID}) {
         cards.append(childData)
     }
 
-<<<<<<< HEAD
-function List({ title, cards, listID}) {
-
-=======
     //Temporary var
->>>>>>> 2722072a43aae26b762e6e84d31a4a8c3c7937a3
     return (
         <Droppable droppableId={String(listID)}>
               {(provided) => (
@@ -32,13 +27,6 @@ function List({ title, cards, listID}) {
                 {...provided.droppableProps}
                 style={styles.container}>
                 <h4 style={styles.title}>{title}</h4>
-<<<<<<< HEAD
-                {cards.map(
-                    (card, index) => {
-                        if(card.column === listID)
-                            return (<CardItem title={card.title} description={card.description} 
-                            id = {card.id} index={index} key={card.id}/>);
-=======
                     {cards.map(
                     (card, index) => {
                         if(card.column === listID)
@@ -46,7 +34,6 @@ function List({ title, cards, listID}) {
                             id = {card.id} index={index} key={card.id}/>);
                         // Default return. Should be unreachable.
                         return null;
->>>>>>> 2722072a43aae26b762e6e84d31a4a8c3c7937a3
                 }
                 )}
                 {provided.placeholder}
