@@ -25,6 +25,6 @@ class UserSerializer(serializers.ModelSerializer):
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ['id', 'title', 'description', 'label', 'comment', 'created_at', 'column']
+        fields = ['id', 'title', 'description', 'label', 'comment', 'created_at', 'column','position']
 
 

@@ -137,7 +137,8 @@ class Card(models.Model):
         A subtask for this card.
     is_done : boolean
         If the task is done.
-
+    position : int
+        cards position in column.
 
     Methods
     -------
@@ -146,7 +147,7 @@ class Card(models.Model):
     """
     
     
-    column = models.ForeignKey(Column, on_delete=models.CASCADE, null=True)
+    column = models.ForeignKey(Column, on_delete=models.CASCADE, null=True, related_name= 'cards')
     title = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     label = models.CharField(max_length=128, blank=True)
@@ -164,6 +165,9 @@ class Card(models.Model):
     subtask_id = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True)
 
     is_done = models.BooleanField(default=False)
+    
+    position = models.PositiveIntegerField(null=True, blank=False)
+
 
     class Meta:
         verbose_name = 'Card'

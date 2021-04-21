@@ -53,6 +53,7 @@ whitenoise = "==5.0.1"
 wrapt = "==1.12.1"
 zipp = "==3.1.0"
 django-rest-knox = "*"
+django-cors-middleware = "*"
 
 [dev-packages]
 
