@@ -5,8 +5,8 @@ import {CardContext} from "./CardContext";
 function AddCard(props) {
 
     const [cards, setCards] = useContext(CardContext);
-    console.log("CARDS FROM CONTEXT IN ADDCARD!!!");
-    console.log(cards);
+   // console.log("CARDS FROM CONTEXT IN ADDCARD!!!");
+    //console.log(cards);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -29,22 +29,22 @@ function AddCard(props) {
                         comment: event.target.comment.value,
                         column: props.listID}
 
-        console.log("CARDS FROM API")
-        console.log(cards);
+        //console.log("CARDS FROM API")
+        //console.log(cards);
         setCards(prevCards => [...prevCards, newCard])
     }
 
     const handleOnClick = (card) => {
         props.modalClosed()
-        console.log("THIS IS THE CARD WE ARE TRYING TO ADD")
-        console.log(card);
+        //console.log("THIS IS THE CARD WE ARE TRYING TO ADD")
+        //console.log(card);
 
-        console.log("THIS IS THE CARDS LIST INSIDE OF HANDLEONCLICK");
-        console.log(cards)
+        //console.log("THIS IS THE CARDS LIST INSIDE OF HANDLEONCLICK");
+        //console.log(cards)
         //setCards(prevCards => [...prevCards, card])
 
-        console.log("THIS IS THE CARDS LIST AFTER ADDING")
-        console.log(cards)
+        //console.log("THIS IS THE CARDS LIST AFTER ADDING")
+        //console.log(cards)
     }
 
     return (

@@ -1,6 +1,7 @@
 import './App.css';
 import React, {useState, useEffect, useContext} from 'react';
 import List from "./List";
+import axios from 'axios';
 import ActionButton from "./ActionButton";
 import { DragDropContext } from 'react-beautiful-dnd';
 
@@ -9,8 +10,8 @@ import {CardContext, CardProvider} from './CardContext';
 
 function App() {
   const [cards, setCards] = useContext(CardContext);
-  console.log("CARDS FROM CONTEXT IN APP")
-  console.log(cards);
+  //console.log("CARDS FROM CONTEXT IN APP")
+  //console.log(cards);
 
   //const [cards, setCards] = useState([])
   // useEffect(() => {
@@ -52,6 +53,13 @@ function App() {
     return data;
   }
 
+  /**
+   * This function reacts to the end of a drag. Switches the card in the card array and
+   * updates the database. Currently, cards get auto added to the bottom of the list.
+   * @param {Promise} result This is what you use to access the source and destination objects
+   * for your drag operation. 
+   * @returns 
+   */
   const onDragEnd = (result) => {
     console.log(result);
     console.log("Lists");
@@ -77,9 +85,9 @@ function App() {
     //console.log(colCards)
 
     const [removedCard] = oldCards.splice(result.source.index, 1);
-    console.log(removedCard.column);
+    //console.log(removedCard.column);
     removedCard.column = Number(newCol);
-    console.log(removedCard);
+    //console.log(removedCard);
     //removedCard.index = result.source.index
     //removedCard.column = col;
     //console.log(cards)
@@ -88,8 +96,14 @@ function App() {
     oldCards.splice(result.destination.index, 0, removedCard);
 
     //setLists([oldCards]);
+    const cardKey = removedCard.id;
+    console.log("Posting to card at" + String(cardKey));
+    axios.put('http://localhost:8000/api/cards/' + String(cardKey) + "/", removedCard)
+    .then(res => console.log(res.data));
+
     console.log(oldCards);
     setCards(oldCards);
+
   }
 
 
