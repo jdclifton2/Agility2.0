@@ -4,9 +4,11 @@ import List from "./List";
 import axios from 'axios';
 import ActionButton from "./ActionButton";
 import { DragDropContext } from 'react-beautiful-dnd';
-
+import axios from "axios";
 import {CardContext, CardProvider} from './CardContext';
-//import {ListContext, ListsProvider} from './ListContext';
+import {ListContext, ListsProvider} from './ListContext';
+import ListActionButton from './ListActionButton';
+
 
 function App() {
   const [cards, setCards] = useContext(CardContext);
@@ -32,33 +34,33 @@ function App() {
   //   return data;
   // }
 
-  //const [lists, setLists] = useContext(ListContext);
-  const [lists, setLists] = useState([])
-
-  useEffect(() => {
-    const getLists = async() => {
-      const listsFromServer = await fetchLists();
-      setLists(listsFromServer)
-
-      console.log(listsFromServer)
-    }
-
-    getLists()
-  }, [])
-
-  const fetchLists = async () => {
-    const res = await fetch('http://localhost:8000/api/columns/')
-    const data = await res.json()
-
-    return data;
-  }
+  const [lists, setLists] = useContext(ListContext);
+  // const [lists, setLists] = useState([])
+  //
+  // useEffect(() => {
+  //   const getLists = async() => {
+  //     const listsFromServer = await fetchLists();
+  //     setLists(listsFromServer)
+  //
+  //     console.log(listsFromServer)
+  //   }
+  //
+  //   getLists()
+  // }, [])
+  //
+  // const fetchLists = async () => {
+  //   const res = await fetch('http://localhost:8000/api/columns/')
+  //   const data = await res.json()
+  //
+  //   return data;
+  // }
 
   /**
    * This function reacts to the end of a drag. Switches the card in the card array and
    * updates the database. Currently, cards get auto added to the bottom of the list.
    * @param {Promise} result This is what you use to access the source and destination objects
-   * for your drag operation. 
-   * @returns 
+   * for your drag operation.
+   * @returns
    */
   const onDragEnd = (result) => {
     console.log(result);
@@ -115,8 +117,8 @@ function App() {
                 {lists.map(list =>
                   <List title={ list.title } cards={cards} listID={list.id} key={list.id}/>
                 )}
+                <ListActionButton />
             </div>
-
             </div>
         </DragDropContext>
   );

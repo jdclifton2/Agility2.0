@@ -69,7 +69,7 @@ const styles = {
         position: "relative",
         left: "257px",
         bottom: "20px",
-        fontSize: '20px'
+        fontSize: '20px',
     }
 
 

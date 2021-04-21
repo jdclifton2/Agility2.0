@@ -21,9 +21,15 @@ function AddCard(props) {
                 column: props.listID
             })
         };
+        // does a post request then sets the state to the newly posted data.
         fetch('http://localhost:8000/api/cards/', requestOptions)
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(data => setCards(prevCards =>
+                [...prevCards, data]
+            ));
 
+        console.log("###########################################################################")
+        console.log(cards)
         const newCard = {title: event.target.title.value,
                         description: event.target.description.value,
                         comment: event.target.comment.value,
@@ -31,7 +37,7 @@ function AddCard(props) {
 
         //console.log("CARDS FROM API")
         //console.log(cards);
-        setCards(prevCards => [...prevCards, newCard])
+        //setCards(prevCards => [...prevCards, newCard])
     }
 
     const handleOnClick = (card) => {
