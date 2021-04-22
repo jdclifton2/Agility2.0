@@ -1,9 +1,11 @@
 import './App.css';
 import React, {useState, useEffect, useContext} from 'react';
 import List from "./List";
-import axios from 'axios';
 import ActionButton from "./ActionButton";
 import { DragDropContext } from 'react-beautiful-dnd';
+import axios from "axios";
+import logo from './logo.png';
+
 import {CardContext, CardProvider} from './CardContext';
 import {ListContext, ListsProvider} from './ListContext';
 import ListActionButton from './ListActionButton';
@@ -111,7 +113,9 @@ function App() {
   return (
         <DragDropContext onDragEnd= {onDragEnd} >
             <div className="App">
-              <h1 style={styles.titleContainer}>Agility 2.0</h1>
+
+              <img style={styles.logoContainer} src={logo} alt="Agility 2.0" width="90" height="90"/>
+              <h1 style={styles.titleContainer}>Team Purple Moscow </h1>
               <div style={styles.listsContainer}>
                 {lists.map(list =>
                   <List title={ list.title } cards={cards} listID={list.id} key={list.id}/>
@@ -137,6 +141,13 @@ const styles = {
   titleContainer: {
     color: "#CDAB7D",
     fontSize: "50px",
+    position: "relative",
+    bottom: "50px"
+  },
+  logoContainer: {
+    position: "relative",
+    left: "1800px",
+    top: "15px"
   }
 
 }

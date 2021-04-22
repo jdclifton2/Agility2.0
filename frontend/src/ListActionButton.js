@@ -44,10 +44,7 @@ function ListActionButton() {
         //                 dashboard: null}
         console.log("###########################################################################")
         console.log(lists)
-       //console.log(lists);
-        //console.log("THIS IS THE LIST WE ARE TRYING TO ADD");
-        //console.log(newList)
-        //console.log(lists)
+        setState({isOpen: false})
         //setLists(prevLists => [...prevLists, newList])
     }
 
@@ -56,6 +53,8 @@ function ListActionButton() {
             <div>
                 <Card
                 style={{
+                    paddingLeft: 9,
+                    marginLeft: 10,
                     backgroundColor: "#CDAB7D",
                     overflow: "visible",
                     minHeight: 80,
@@ -80,6 +79,8 @@ function ListActionButton() {
                             onClick={createList}
                             variant="contained"
                             style={{
+                                position: "relative",
+                                right: 9,
                                 fontWeight: "bold",
                                 boxShadow: "5px",
                                 color: "#592c99",
@@ -123,13 +124,16 @@ const styles = {
         borderRadius: 5,
         height: 36,
         width: 272,
-        paddingLeft: 10
+        paddingLeft: 10,
+        marginLeft: 9
 
     },
     formButtonGroup: {
         marginTop: 8,
         display: "flex",
         alignItems: "center",
+        paddingLeft: 10,
+        marginLeft: 9
     }
 }
 export default ListActionButton;
