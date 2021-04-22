@@ -3,20 +3,36 @@ import { Droppable } from "react-beautiful-dnd";
 import CardItem from "./CardItem"
 import ActionButton from "./ActionButton";
 import {CardContext} from "./CardContext";
+import Icon from "@material-ui/core/Icon";
+import {ListContext} from "./ListContext";
 
 function List({ title, listID}) {
 
     const[cards, setCards] = useContext(CardContext);
 
+    const[lists, setLists] = useContext(ListContext);
+
     console.log("These are the cards in the list");
     console.log(cards);
 
-    const handleCallBack = (childData) => {
-        console.log("Data made it back to the parent: ")
-        console.log(childData)
+    const handleDeleteList = (e) => {
+        e.preventDefault();
+        const newState = lists.filter(function(list) {
+            return list.id !== listID;
+        })
 
-        cards.append(childData)
+
+
+        fetch(`http://localhost:8000/api/columns/${listID}/`, { method: 'DELETE'})
+            .then(() => setLists(newState));
     }
+
+    // const handleCallBack = (childData) => {
+    //     console.log("Data made it back to the parent: ")
+    //     console.log(childData)
+    //
+    //     cards.append(childData)
+    // }
 
     //Temporary var
     return (
@@ -26,7 +42,11 @@ function List({ title, listID}) {
                 ref={provided.innerRef}
                 {...provided.droppableProps}
                 style={styles.container}>
-                <h4 style={styles.title}>{title}</h4>
+                    <div style={{position: "relative"}}>
+                        <h4 style={styles.title}>{title}</h4>
+                        <Icon onClick={handleDeleteList} style={styles.buttonContainer}>close</Icon>
+                    </div>
+
                     {cards.map(
                     (card, index) => {
                         if(card.column === listID)
@@ -37,7 +57,7 @@ function List({ title, listID}) {
                 }
                 )}
                 {provided.placeholder}
-                <ActionButton listID={listID} parentCallback={handleCallBack}/>
+                <ActionButton listID={listID}/>
                 </div>
             )}
         </Droppable>
@@ -49,14 +69,22 @@ const styles = {
         boxShadow: "0 10px 35px rgba(0, 0, 0, 0.8)",
         background: "linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 15%, transparent 50%, transparent 85%, rgba(255, 255, 255 .3) 100%)",
         //backgroundColor: "#dfe3e6",
-        borderRadius: 3,
+        borderRadius: 9,
         width: 300,
         padding: 8,
         height: "100%",
-        marginRight: 8
+        marginRight: 1,
+        marginLeft: 10
     },
     title: {
         fontSize: "25px",
+        color: "#CDAB7D"
+    },
+    buttonContainer: {
+        position: "absolute",
+        top: "0px",
+        right: "0px",
+        fontSize: '30px',
         color: "#CDAB7D"
     }
 }

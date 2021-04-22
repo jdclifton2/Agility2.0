@@ -64,6 +64,9 @@ const styles = {
     cardTitleContainer: {
         fontWeight: "bold",
         fontSize: "15px",
+        position: "relative",
+        left: "3px",
+        top: "3px"
     },
     buttonContainer: {
         position: "relative",
@@ -75,4 +78,4 @@ const styles = {
 
 }
 
-export default CardItem
+export default CardItem;
