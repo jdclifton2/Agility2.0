@@ -4,7 +4,6 @@ import List from "./List";
 import axios from 'axios';
 import ActionButton from "./ActionButton";
 import { DragDropContext } from 'react-beautiful-dnd';
-import axios from "axios";
 import {CardContext, CardProvider} from './CardContext';
 import {ListContext, ListsProvider} from './ListContext';
 import ListActionButton from './ListActionButton';
