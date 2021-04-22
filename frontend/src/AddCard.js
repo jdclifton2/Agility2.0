@@ -74,6 +74,7 @@ function AddCard(props) {
                               <Form.Control
                                 type="text"
                                 name="title"
+                                autocomplete="off"
                                 required
                                 placeholder="Card Title"/>
                           </Form.Group>
@@ -83,6 +84,7 @@ function AddCard(props) {
                               <Form.Control style={{height: "100px", width: "700px"}}
                                 type="text"
                                 name="description"
+                                autocomplete="off"
                                 required
                                 placeholder="Card Description"/>
                           </Form.Group>
@@ -92,6 +94,7 @@ function AddCard(props) {
                               <Form.Control
                                 type="text"
                                 name="comment"
+                                autocomplete="off"
                                 required
                                 placeholder="Card comments"/>
                           </Form.Group>
