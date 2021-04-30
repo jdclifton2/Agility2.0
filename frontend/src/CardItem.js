@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Icon from "@material-ui/core/Icon";
+import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import {CardContext} from "./CardContext";
 
 function CardItem({title, description, id, index}) {
@@ -27,6 +28,10 @@ function CardItem({title, description, id, index}) {
         //console.log(cards)
     }
 
+    const handleDoubleClick = () => {
+        console.log("Hello")
+    }
+
     return (
         <Draggable key={id} draggableId={String(id)} index={index}>
         {(provided, snapshot) => (
@@ -35,12 +40,14 @@ function CardItem({title, description, id, index}) {
             {...provided.draggableProps}
             {...provided.dragHandleProps}>
 
-          <Card style = {styles.cardContainer}>
+          <Card
+              style = {styles.cardContainer}
+              onDoubleClick={handleDoubleClick}>
               <div>
                 <div style={styles.cardTitleContainer}>
                     <span style={styles.cardTitleContainer}>{title}</span>
                 </div>
-                  <Icon onClick={handleOnDelete} style={styles.buttonContainer}>close</Icon>
+                  <DeleteForeverRoundedIcon onClick={handleOnDelete} style={styles.buttonContainer} />
               </div>
             <CardContent>
                 <Typography gutterBottom>

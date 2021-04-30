@@ -109,5 +109,4 @@ function AddCard(props) {
         </Modal>
     );
 }
-
 export default AddCard;

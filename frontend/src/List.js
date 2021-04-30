@@ -4,6 +4,7 @@ import CardItem from "./CardItem"
 import ActionButton from "./ActionButton";
 import {CardContext} from "./CardContext";
 import Icon from "@material-ui/core/Icon";
+import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 import {ListContext} from "./ListContext";
 
 function List({ title, listID}) {
@@ -44,7 +45,7 @@ function List({ title, listID}) {
                 style={styles.container}>
                     <div style={{position: "relative"}}>
                         <h4 style={styles.title}>{title}</h4>
-                        <Icon onClick={handleDeleteList} style={styles.buttonContainer}>close</Icon>
+                        <DeleteForeverRoundedIcon onClick={handleDeleteList} style={styles.buttonContainer} />
                     </div>
 
                     {cards.map(
