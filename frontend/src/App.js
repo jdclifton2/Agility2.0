@@ -64,41 +64,18 @@ function App() {
    * @returns
    */
   const onDragEnd = (result) => {
-    console.log(result);
-    console.log("Lists");
-    console.log(lists);
-    console.log("Cards");
-    console.log(cards);
-    //prevent app from crashing if card dragged in non droppable
+
     if(!result.destination) return;
 
     const oldCards = Array.from(cards);
-    console.log("Old cards");
-    console.log(oldCards);
-    const newCol = result.destination.droppableId;
-    console.log("col");
-    console.log(newCol);
 
-    //const colCards = oldCards.filter(card => card.column == col);
-  //const copiedItems = [...col.items];
-    // remove the card 
-    console.log("Source index " + result.source.index);
-    console.log("Card to be removed ");
-    //console.log(oldCards[result.source.index])
-    //console.log(colCards)
+    const newCol = result.destination.droppableId;
 
     const [removedCard] = oldCards.splice(result.source.index, 1);
-    //console.log(removedCard.column);
     removedCard.column = Number(newCol);
-    //console.log(removedCard);
-    //removedCard.index = result.source.index
-    //removedCard.column = col;
-    //console.log(cards)
-    //console.log("Destination index " + result.destination.index)
 
     oldCards.splice(result.destination.index, 0, removedCard);
 
-    //setLists([oldCards]);
     const cardKey = removedCard.id;
     console.log("Posting to card at" + String(cardKey));
     axios.put('http://localhost:8000/api/cards/' + String(cardKey) + "/", removedCard)

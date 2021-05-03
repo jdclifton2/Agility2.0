@@ -6,14 +6,17 @@ import {CardContext} from "./CardContext";
 import Icon from "@material-ui/core/Icon";
 import {ListContext} from "./ListContext";
 
+/**
+ * Functional component used to represent a list in our kanban board. Will sort cards by order of
+ * their position.
+ * @param title The title of the list.
+ * @param listID The ID of the list.  
+ */
 function List({ title, listID}) {
 
     const[cards, setCards] = useContext(CardContext);
 
     const[lists, setLists] = useContext(ListContext);
-
-    console.log("These are the cards in the list");
-    console.log(cards);
 
     const handleDeleteList = (e) => {
         e.preventDefault();
@@ -27,15 +30,13 @@ function List({ title, listID}) {
             .then(() => setLists(newState));
     }
 
-    // const handleCallBack = (childData) => {
-    //     console.log("Data made it back to the parent: ")
-    //     console.log(childData)
-    //
-    //     cards.append(childData)
-    // }
-
-    //Temporary var
     return (
+        /**
+        * This is used to enable drag and drop functionality.
+        * Consult beautiful-dnd documentation if confused. Wrappling a list in droppable enables
+        * draggable items to be dropped within that space. In this case, we want each list to be
+        * a droppable zone.
+        */
         <Droppable droppableId={String(listID)}>
               {(provided) => (
                 <div
@@ -46,16 +47,19 @@ function List({ title, listID}) {
                         <h4 style={styles.title}>{title}</h4>
                         <Icon onClick={handleDeleteList} style={styles.buttonContainer}>close</Icon>
                     </div>
-
-                    {cards.sort( (cardA, cardB) => cardA.position - cardB.position).map(
-                    (card, index) => {
-                        if(card.column === listID)
-                            return (<CardItem title={card.title} description={card.description}
-                            id = {card.id} index={index} key={card.id}/>);
-                        // // Default return. Should be unreachable.
-                        // return null;
-                }
-                )}
+                    {cards.sort( 
+                        //sort based on position
+                        (cardA, cardB) => (cardA.position > cardB.position) ? 1 : -1)
+                            .map((card, index) => { 
+                                //only cards that belong to that column
+                                if(card.column === listID){
+                                    return (
+                                    <CardItem title={card.title} description={card.description}
+                                        id = {card.id} index={index} key={card.id}/>)
+                                }; //end if
+                            }
+                        )}
+                        
                 {provided.placeholder}
                 <ActionButton listID={listID}/>
                 </div>
