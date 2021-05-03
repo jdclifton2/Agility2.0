@@ -1,56 +1,40 @@
 import React, {useEffect, useState, useContext} from "react";
 import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
 import {CardContext} from "./CardContext";
+import axios from "axios";
 
+
+/**
+ * This function reacts to a card being added to a list. Updates the database and the state.
+ * @param {*} props Passed down from parent component.
+ */
 function AddCard(props) {
 
     const [cards, setCards] = useContext(CardContext);
-   // console.log("CARDS FROM CONTEXT IN ADDCARD!!!");
-    //console.log(cards);
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                title: event.target.title.value,
-                description: event.target.description.value,
-                comment: event.target.comment.value,
-                column: props.listID
-            })
-        };
-        // does a post request then sets the state to the newly posted data.
-        fetch('http://localhost:8000/api/cards/', requestOptions)
-            .then(response => response.json())
-            .then(data => setCards(prevCards =>
-                [...prevCards, data]
-            ));
+        // The data to be posted
+        const cardJson = JSON.stringify({
+            title: event.target.title.value,
+            description: event.target.description.value,
+            comment: event.target.comment.value,
+            column: props.listID
+        });
 
-        console.log("###########################################################################")
-        console.log(cards)
-        const newCard = {title: event.target.title.value,
-                        description: event.target.description.value,
-                        comment: event.target.comment.value,
-                        column: props.listID}
+        //required headers
+        const headers = { 'Content-Type': 'application/json'};
 
-        //console.log("CARDS FROM API")
-        //console.log(cards);
-        //setCards(prevCards => [...prevCards, newCard])
+        axios.post('http://localhost:8000/api/cards/', cardJson , {
+            headers: headers
+          })
+        .then(res => 
+            setCards([...cards, res.data]));
     }
 
     const handleOnClick = (card) => {
         props.modalClosed()
-        //console.log("THIS IS THE CARD WE ARE TRYING TO ADD")
-        //console.log(card);
-
-        //console.log("THIS IS THE CARDS LIST INSIDE OF HANDLEONCLICK");
-        //console.log(cards)
-        //setCards(prevCards => [...prevCards, card])
-
-        //console.log("THIS IS THE CARDS LIST AFTER ADDING")
-        //console.log(cards)
     }
 
     return (

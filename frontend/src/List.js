@@ -21,7 +21,7 @@ function List({ title, listID}) {
             return list.id !== listID;
         })
 
-
+// sort by value
 
         fetch(`http://localhost:8000/api/columns/${listID}/`, { method: 'DELETE'})
             .then(() => setLists(newState));
@@ -47,13 +47,13 @@ function List({ title, listID}) {
                         <Icon onClick={handleDeleteList} style={styles.buttonContainer}>close</Icon>
                     </div>
 
-                    {cards.map(
+                    {cards.sort( (cardA, cardB) => cardA.position - cardB.position).map(
                     (card, index) => {
                         if(card.column === listID)
                             return (<CardItem title={card.title} description={card.description}
                             id = {card.id} index={index} key={card.id}/>);
-                        // Default return. Should be unreachable.
-                        return null;
+                        // // Default return. Should be unreachable.
+                        // return null;
                 }
                 )}
                 {provided.placeholder}
