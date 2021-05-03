@@ -10,78 +10,44 @@ import {CardContext, CardProvider} from './CardContext';
 import {ListContext, ListsProvider} from './ListContext';
 import ListActionButton from './ListActionButton';
 
-
+/**
+ * The main component for our kanban board application. All other components are rendered from 
+ * here. 
+ * @returns All rendered components. 
+ */
 function App() {
+  //initial state of cards
   const [cards, setCards] = useContext(CardContext);
-  //console.log("CARDS FROM CONTEXT IN APP")
-  //console.log(cards);
-
-  //const [cards, setCards] = useState([])
-  // useEffect(() => {
-  //   const getCards = async () => {
-  //     const cardsFromServer = await fetchCards()
-  //     setCards(cardsFromServer)
-  //
-  //     //console.log(cardsFromServer);
-  //   }
-  //
-  //   getCards()
-  // }, [])
-  //
-  // const fetchCards = async () => {
-  //   const res = await fetch('http://localhost:8000/api/cards/')
-  //   const data = await res.json()
-  //
-  //   return data;
-  // }
-
+  //initial state of lists
   const [lists, setLists] = useContext(ListContext);
-  // const [lists, setLists] = useState([])
-  //
-  // useEffect(() => {
-  //   const getLists = async() => {
-  //     const listsFromServer = await fetchLists();
-  //     setLists(listsFromServer)
-  //
-  //     console.log(listsFromServer)
-  //   }
-  //
-  //   getLists()
-  // }, [])
-  //
-  // const fetchLists = async () => {
-  //   const res = await fetch('http://localhost:8000/api/columns/')
-  //   const data = await res.json()
-  //
-  //   return data;
-  // }
-
+  
   /**
    * This function reacts to the end of a drag. Switches the card in the card array and
    * updates the database. Currently, cards get auto added to the bottom of the list.
    * @param {Promise} result This is what you use to access the source and destination objects
    * for your drag operation.
-   * @returns
    */
   const onDragEnd = (result) => {
 
+    // prevents app from crashing if draggable dragged to a non droppable
     if(!result.destination) return;
 
     const oldCards = Array.from(cards);
 
     const newCol = result.destination.droppableId;
 
+    // grab the card to be removed
     const [removedCard] = oldCards.splice(result.source.index, 1);
+    //change the column
     removedCard.column = Number(newCol);
-
+    //put updated card back in.
     oldCards.splice(result.destination.index, 0, removedCard);
 
     const cardKey = removedCard.id;
-    console.log("Posting to card at" + String(cardKey));
+    //update database
     axios.put('http://localhost:8000/api/cards/' + String(cardKey) + "/", removedCard)
     .then(res => console.log(res.data));
 
-    console.log(oldCards);
     setCards(oldCards);
 
   }

@@ -6,11 +6,17 @@ import CardContent from '@material-ui/core/CardContent';
 import Icon from "@material-ui/core/Icon";
 import {CardContext} from "./CardContext";
 
+/**
+ * Functional component to represent a card item in our kanban board. 
+ * @param Title The title of the card.
+ * @param description The description of the card.
+ * @param id The id of the card.
+ * @param index The index of the card. Used for react-beautiful-dnd.
+ * @returns A card object rendered on the page. 
+ */
 function CardItem({title, description, id, index}) {
 
     const [cards, setCards] = useContext(CardContext);
-    //console.log("CARDS STATE FROM CARDITEM.JS");
-    //console.log(cards);
 
     const handleOnDelete = (e) => {
         e.preventDefault();
@@ -18,16 +24,13 @@ function CardItem({title, description, id, index}) {
             return card.id !== id;
         })
 
-        //console.log("NEW STATE")
-        //console.log(newState);
-
+        // aquire the cards from the database.
         fetch(`http://localhost:8000/api/cards/${id}/`, { method: 'DELETE'})
             .then(() => setCards(newState))
-
-        //console.log(cards)
     }
 
     return (
+        // used for react-beautiful-dnd. Used to make cards draggable. Consult documentation.
         <Draggable key={id} draggableId={String(id)} index={index}>
         {(provided, snapshot) => (
             <div
