@@ -14,13 +14,18 @@ function AddCard(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        // card gets put at the bottom by default 
+        // let pos = 0;
+        // if(cards.length > 0){
+        //     pos = cards.length - 1;
+        // }
+        // console.log("pos" + pos);
         // The data to be posted
         const cardJson = JSON.stringify({
             title: event.target.title.value,
             description: event.target.description.value,
             comment: event.target.comment.value,
-            column: props.listID
+            column: props.listID,
         });
 
         //required headers

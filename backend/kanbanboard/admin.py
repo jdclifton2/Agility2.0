@@ -5,13 +5,15 @@ from kanbanboard.models import Member, Board, Column, Card
 
 
 class ColumnInline(admin.StackedInline):
+    
     model = Column
 
 
 #@admin.register(Dashboard)
 #Description class. Changes what is seen on the admin site table.
 class BoardAdmin(admin.ModelAdmin):
-
+    """ This class changes what is displayed on the admin page for the board class. 
+    """
     inlines = []
     #fields you want on the same line go in the same tuple
     fields = (('title', 'is_public'), 'created_at', 'updated_at', 'owner')
@@ -24,34 +26,22 @@ class BoardAdmin(admin.ModelAdmin):
     list_editable = ('is_public',)
 
 
-    # def get_list_display(self, record):
-    #     """
-    #     This method is used for displaying certain fields dynamically.
-    #     If the user is a supr user it will show extra fields.
-    #     """
-    #     #fields to display
-    #     ld = ['id', 'title', 'owner', 'is_public']
-
-    #     if record.user.is_superuser:
-    #         ld += ['created_at', 'updated_at']
-        
-    #     return ld
-
-
-    # def get_owner(self, rec):
-    #     return rec.owner.user.username
-
-    # #changes what is displayed in the columns of table
-    # get_owner.short_decription = "Owner"
-
-
-
-
-
 class CardInline(admin.TabularInline):
+    """
+    This class changes the way the card list appears on the admin page. 
+
+
+    Methods
+    -------
+   get_extra()
+        Used to get extra cards. Either 1 or 5.
+    """
     model = Card
 
     def get_extra(self, request, obj=None, **kwargs):
+        """
+        Used to display 1 or 5 extra cards on the admin page. 
+        """
         #if we got to page by editing an existing entry
         if obj:
             return 1
@@ -65,6 +55,8 @@ class CardInline(admin.TabularInline):
 
 
 class ColumnAdmin(admin.ModelAdmin):
+    """ This class changes what is displayed on the admin page for the column class. 
+    """
     list_display = ('title', 'dashboard', 'created_at', 'updated_at')
     
     #changes the order that fields appear on admin page
@@ -77,19 +69,12 @@ class ColumnAdmin(admin.ModelAdmin):
 
 
 class MemberAdmin(admin.ModelAdmin):
-    list_display = ('user', 'created_at', 'updated_at', 'get_avatar')
-
-
-    def get_avatar(self, obj):
-        if obj.avatar:
-            return mark_safe(f'<img src="{obj.avatar.url}" width="75">')
-        else:
-            return '-'
-
+    """ This class changes what is displayed on the admin page for the member class. 
+    """
+    list_display = ('user', 'created_at', 'updated_at')
 
     empty_value_display = "UNSET"
 
-    get_avatar.short_description = "Avatar"
 
 
 

@@ -40,6 +40,10 @@ function App() {
     const [removedCard] = oldCards.splice(result.source.index, 1);
     //change the column
     removedCard.column = Number(newCol);
+    //removedCard.position = result.destination.position;
+    console.log("dawg")
+    console.log(result.destination)
+
     //put updated card back in.
     oldCards.splice(result.destination.index, 0, removedCard);
 
