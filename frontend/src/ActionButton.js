@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
-import Modal from "@material-ui/core/Modal";
-import Card from '@material-ui/core/Card';
-//import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import Textarea from 'react-textarea-autosize';
-
-import { Button, ButtonToolbar } from 'react-bootstrap';
 import AddCard from './AddCard';
 
+/**
+ * This function will represent our ActionButton component. This button will generate a pop-up window
+ * of which can be used to create a card.
+ *
+ * @param listID prop used to identify which column we need to add the card to.
+ */
 function ActionButton({listID}) {
-    const [state, setState] = useState({modalOpen: false})
-    const modalClosed = () => setState({modalOpen: false})
+    /** The state of the pop-up window **/
+    const [state, setState] = useState({modalOpen: false});
+
+    /**
+     * This function is used to toggle the state of the pop-up window between open/close.
+     */
+    const modalClosed = () => setState({modalOpen: false});
 
     return (
         <div>
@@ -98,6 +103,10 @@ function ActionButton({listID}) {
 //     return state.formOpen ? renderForm() : renderAddButton();
 // }
 //
+
+/**
+ * Styles used to decorate the buttons.
+ */
 const styles = {
     openForButtonGroup: {
         display: "flex",
@@ -113,6 +122,5 @@ const styles = {
         display: "flex",
         alignItems: "center"
     }
-}
-
+};
 export default ActionButton;

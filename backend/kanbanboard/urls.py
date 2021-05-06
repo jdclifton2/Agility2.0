@@ -1,6 +1,3 @@
-from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from kanbanboard.views import BoardList, BoardDetail, CardList, ColumnDetail, CardDetail, ColumnList
 from kanbanboard.api import BoardViewSet, CardViewSet, UserViewSet, ColumnViewSet
 from rest_framework import routers
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Member(models.Model):
     """This class models a member of the application.
 
@@ -109,8 +110,6 @@ class Column(models.Model):
     def __str__(self):
         return f'{self.title}'
 
-        
-
 
 class Card(models.Model):
     """This class models a card of tasks contained within a column/list.
@@ -145,8 +144,7 @@ class Card(models.Model):
     __str__(self)
         ToString method.
     """
-    
-    
+
     column = models.ForeignKey(Column, on_delete=models.CASCADE, null=True, related_name= 'cards')
     title = models.CharField(max_length=128)
     description = models.TextField(blank=True)
@@ -168,11 +166,9 @@ class Card(models.Model):
     
     position = models.PositiveIntegerField(null=True, blank=False)
 
-
     class Meta:
         verbose_name = 'Card'
         verbose_name_plural = 'Cards'
-
 
     def __str__(self):
         return f'{self.id}'
@@ -199,7 +195,6 @@ class Project(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     label = models.CharField(max_length=128, blank=True)
-
 
     def __str__(self):
         return f'{self.id}'

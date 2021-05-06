@@ -18,16 +18,22 @@ function CardItem({title, description, id, index}) {
 
     const [cards, setCards] = useContext(CardContext);
 
+    /**
+     * This event handler is triggered when the user clicks on the "X" button on the card. It will make a
+     * delete request to the backend and remove the card from the database based on the card ID. This function
+     * will also update the state of our cards.
+     * @param e delete event
+     */
     const handleOnDelete = (e) => {
         e.preventDefault();
         const newState = cards.filter(function(card) {
             return card.id !== id;
-        })
+        });
 
         // aquire the cards from the database.
         fetch(`http://localhost:8000/api/cards/${id}/`, { method: 'DELETE'})
             .then(() => setCards(newState))
-    }
+    };
 
     return (
         // used for react-beautiful-dnd. Used to make cards draggable. Consult documentation.
@@ -59,6 +65,9 @@ function CardItem({title, description, id, index}) {
     )
 }
 
+/**
+ * Used to style the cards, title of cards, and buttons.
+ */
 const styles = {
     cardContainer: {
         marginBottom: 8,
@@ -77,8 +86,5 @@ const styles = {
         bottom: "20px",
         fontSize: '20px',
     }
-
-
-}
-
+};
 export default CardItem;

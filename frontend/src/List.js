@@ -12,23 +12,27 @@ import {ListContext} from "./ListContext";
  * @param title The title of the list.
  * @param listID The ID of the list.  
  */
-function List({ title, listID}) {
+function List({ title, listID }) {
 
     const[cards, setCards] = useContext(CardContext);
 
     const[lists, setLists] = useContext(ListContext);
 
+    /**
+     * This event handler is triggered when the user clicks on the "X" button on the list. It will make a
+     * delete request to the backend and remove the list from the database based on the list ID. This function
+     * will also update the state of our lists.
+     * @param e delete event
+     */
     const handleDeleteList = (e) => {
         e.preventDefault();
         const newState = lists.filter(function(list) {
             return list.id !== listID;
-        })
-
-// sort by value
+        });
 
         fetch(`http://localhost:8000/api/columns/${listID}/`, { method: 'DELETE'})
             .then(() => setLists(newState));
-    }
+    };
 
     return (
         /**
@@ -68,6 +72,9 @@ function List({ title, listID}) {
     );
 }
 
+/**
+ * Used to style our list component.
+ */
 const styles = {
     container: {
         boxShadow: "0 10px 35px rgba(0, 0, 0, 0.8)",
@@ -91,6 +98,5 @@ const styles = {
         fontSize: '30px',
         color: "#CDAB7D"
     }
-}
-
+};
 export default List;

@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import { CardProvider } from './CardContext';
-import {ListsProvider} from "./ListContext";
+import { ListsProvider } from "./ListContext";
 
-
+/**
+ * This is where the app is rendered.
+ */
 ReactDOM.render(
     <CardProvider>
         <ListsProvider>

@@ -1,13 +1,11 @@
 import './App.css';
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useContext } from 'react';
 import List from "./List";
-import ActionButton from "./ActionButton";
 import { DragDropContext } from 'react-beautiful-dnd';
 import axios from "axios";
 import logo from './logo.png';
-
-import {CardContext, CardProvider} from './CardContext';
-import {ListContext, ListsProvider} from './ListContext';
+import { CardContext } from './CardContext';
+import { ListContext } from './ListContext';
 import ListActionButton from './ListActionButton';
 
 /**
@@ -28,7 +26,6 @@ function App() {
    * for your drag operation.
    */
   const onDragEnd = (result) => {
-
     // prevents app from crashing if draggable dragged to a non droppable
     if(!result.destination) return;
 
@@ -41,8 +38,8 @@ function App() {
     //change the column
     removedCard.column = Number(newCol);
     //removedCard.position = result.destination.position;
-    console.log("dawg")
-    console.log(result.destination)
+    console.log("dawg");
+    console.log(result.destination);
 
     //put updated card back in.
     oldCards.splice(result.destination.index, 0, removedCard);
@@ -53,9 +50,7 @@ function App() {
     .then(res => console.log(res.data));
 
     setCards(oldCards);
-
-  }
-
+  };
 
   return (
         <DragDropContext onDragEnd= {onDragEnd} >
@@ -74,6 +69,9 @@ function App() {
   );
 }
 
+/**
+ * Used to style our lists, page, and title of the lists.
+ */
 const styles = {
   pageContainer: {
     margin: "0",
@@ -96,6 +94,5 @@ const styles = {
     left: "1800px",
     top: "15px"
   }
-
-}
+};
 export default App;

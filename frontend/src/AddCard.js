@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, { useContext } from "react";
 import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
 import {CardContext} from "./CardContext";
 import axios from "axios";
@@ -12,15 +12,15 @@ function AddCard(props) {
 
     const [cards, setCards] = useContext(CardContext);
 
+    /**
+     * This handleSubmit event listener is triggered when the user clicks on the "Add Card" button. It will create
+     * a Card JSON object based on the user's input and post the newly added card to the backend. This function
+     * will also update the state of the cards so that we don't have to refresh the page after adding a new card.
+     * @param event Add button clicked.
+     */
     const handleSubmit = (event) => {
         event.preventDefault();
-        // card gets put at the bottom by default 
-        // let pos = 0;
-        // if(cards.length > 0){
-        //     pos = cards.length - 1;
-        // }
-        // console.log("pos" + pos);
-        // The data to be posted
+
         const cardJson = JSON.stringify({
             title: event.target.title.value,
             description: event.target.description.value,
@@ -36,11 +36,15 @@ function AddCard(props) {
           })
         .then(res => 
             setCards([...cards, res.data]));
-    }
+    };
 
-    const handleOnClick = (card) => {
-        props.modalClosed()
-    }
+    /**
+     * This function is called when the user clicks on the "Add" button in the pop-up window. It will
+     * handle the event by closing the window.
+     */
+    const handleOnClick = () => {
+        props.modalClosed();
+    };
 
     return (
             <Modal
@@ -98,5 +102,4 @@ function AddCard(props) {
         </Modal>
     );
 }
-
 export default AddCard;

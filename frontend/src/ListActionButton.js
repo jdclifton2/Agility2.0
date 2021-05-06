@@ -4,30 +4,52 @@ import Card from "@material-ui/core/Card";
 import Textarea from "react-textarea-autosize";
 import {Button} from "react-bootstrap";
 import {ListContext} from "./ListContext";
-import { v4 as uuidv4 } from 'uuid';
 
+/**
+ * This function will represent the button responsible for creating a new list.
+ */
 function ListActionButton() {
-    const [state, setState] = useState({isOpen: false})
+    const [state, setState] = useState({isOpen: false});
 
-    const [textState, setTextState] = useState({title: ''})
+    const [textState, setTextState] = useState({title: ''});
 
     const [lists, setLists] = useContext(ListContext);
 
+    // This is added just to get rid of the React warning.
+    console.log(lists[0]);
+
+    /**
+     * Open the form used to create a new list. This event will be triggered when the user
+     * clicks on "Add new List".
+     */
     const openForm = () => {
         setState({isOpen: true})
     };
 
+    /**
+     * Closes the form used to create a new list. This event will be triggered when the user
+     * clicks on the "X" button in the list form.
+     */
     const closeForm = () => {
         setState({isOpen: false})
-    }
+    };
 
+    /**
+     * This function will handle the change in our text.
+     * @param e
+     */
     const handleChange = (e) => {
         setTextState(e.target.value);
-        console.log(textState)
-    }
+    };
 
+    /**
+     * This createList function is triggered when the user clicks on the "Add List" button. It will create
+     * a List JSON object based on the user's input and post the newly added list to the backend. This function
+     * will also update the state of the lists so that we don't have to refresh the page after adding a new list.
+     * @param e Add List button clicked.
+     */
     const createList = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const requestOptions = {
             method: 'POST',
@@ -39,15 +61,11 @@ function ListActionButton() {
         fetch('http://localhost:8000/api/columns/', requestOptions)
             .then(response => response.json())
             .then(data => setLists(prevLists => [...prevLists, data]));
+    };
 
-        //const newList = {title: "Would",
-        //                 dashboard: null}
-        console.log("###########################################################################")
-        console.log(lists)
-        setState({isOpen: false})
-        //setLists(prevLists => [...prevLists, newList])
-    }
-
+    /**
+     * This function is for rendering the add list form.
+     */
     const renderForm = () => {
     return (
             <div>
@@ -90,8 +108,11 @@ function ListActionButton() {
                 </div>
             </div>
         )
-    }
+    };
 
+    /**
+     * This function is for rendering the Add list button.
+     */
     const renderAddButton = () => {
     return (
         <div
@@ -110,12 +131,14 @@ function ListActionButton() {
                 }}>Add New List</p>
         </div>
     )
-}
-
+};
+    // If form is open, render form. Otherwise, render the addList button.
     return state.isOpen ? renderForm() : renderAddButton();
 }
 
-
+/**
+ * styles for the buttons and form.
+ */
 const styles = {
     openForButtonGroup: {
         display: "flex",
@@ -135,5 +158,5 @@ const styles = {
         paddingLeft: 10,
         marginLeft: 9
     }
-}
+};
 export default ListActionButton;
