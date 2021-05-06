@@ -1,12 +1,15 @@
 import './App.css';
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import List from "./List";
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import axios from "axios";
 import logo from './logo.png';
 import { CardContext } from './CardContext';
 import { ListContext } from './ListContext';
 import ListActionButton from './ListActionButton';
+
+const Container = styled.div``;
 
 /**
  * The main component for our kanban board application. All other components are rendered from 
@@ -27,44 +30,57 @@ function App() {
    */
   const onDragEnd = (result) => {
     // prevents app from crashing if draggable dragged to a non droppable
-    if(!result.destination) return;
+    if(result.type === 'card'){
+      if(!result.destination) return;
 
-    const oldCards = Array.from(cards);
+      const oldCards = Array.from(cards);
 
-    const newCol = result.destination.droppableId;
+      const newCol = result.destination.droppableId;
 
-    // grab the card to be removed
-    const [removedCard] = oldCards.splice(result.source.index, 1);
-    //change the column
-    removedCard.column = Number(newCol);
-    //removedCard.position = result.destination.position;
-    console.log("dawg");
-    console.log(result.destination);
+      // grab the card to be removed
+      const [removedCard] = oldCards.splice(result.source.index, 1);
+      //change the column
+      removedCard.column = Number(newCol);
+      //removedCard.position = result.destination.position;
 
-    //put updated card back in.
-    oldCards.splice(result.destination.index, 0, removedCard);
+      //put updated card back in.
+      oldCards.splice(result.destination.index, 0, removedCard);
 
-    const cardKey = removedCard.id;
-    //update database
-    axios.put('http://localhost:8000/api/cards/' + String(cardKey) + "/", removedCard)
-    .then(res => console.log(res.data));
+      const cardKey = removedCard.id;
+      //update database
+      axios.put('http://localhost:8000/api/cards/' + String(cardKey) + "/", removedCard)
+      .then(res => console.log(res.data));
 
-    setCards(oldCards);
+      setCards(oldCards);
+    } else {
+      const oldList = Array.from(lists);
+      const [removedList] = oldList.splice(result.source.index, 1);
+      oldList.splice(result.destination.index, 0, removedList);
+      setLists(oldList);
+      
+    }
   };
 
   return (
         <DragDropContext onDragEnd= {onDragEnd} >
-            <div className="App">
-
+          <Droppable droppableId="all-columns" direction ="horizontal" type="list">
+            {provided => (
+            <Container            
+            {...provided.droppableProps}
+            ref={provided.innerRef}>
+              
               <img style={styles.logoContainer} src={logo} alt="Agility 2.0" width="90" height="90"/>
               <h1 style={styles.titleContainer}>Team Purple Moscow </h1>
               <div style={styles.listsContainer}>
-                {lists.map(list =>
-                  <List title={ list.title } cards={cards} listID={list.id} key={list.id}/>
+                {lists.map((list,index) =>
+                  <List title={ list.title } cards={cards} listID={list.id} key={list.id} index={index}/>
                 )}
                 <ListActionButton />
             </div>
-            </div>
+            {provided.placeholder}
+          </Container>
+          )}
+        </Droppable>
         </DragDropContext>
   );
 }

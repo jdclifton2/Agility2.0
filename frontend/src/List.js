@@ -1,18 +1,22 @@
 import React, {useContext} from 'react';
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import CardItem from "./CardItem"
+import styled from 'styled-components';
 import ActionButton from "./ActionButton";
 import {CardContext} from "./CardContext";
 import Icon from "@material-ui/core/Icon";
 import {ListContext} from "./ListContext";
+import { Container } from '@material-ui/core';
 
+const Containers = styled.div``;
+const Title = styled.h4``;
 /**
  * Functional component used to represent a list in our kanban board. Will sort cards by order of
  * their position.
  * @param title The title of the list.
  * @param listID The ID of the list.  
  */
-function List({ title, listID }) {
+function List({ title, listID, index }) {
 
     const[cards, setCards] = useContext(CardContext);
 
@@ -41,25 +45,38 @@ function List({ title, listID }) {
         * draggable items to be dropped within that space. In this case, we want each list to be
         * a droppable zone.
         */
-        <Droppable droppableId={String(listID)}>
+       <Draggable draggableId={String(listID)} index={index}>
+        
+        {(provided2) => (
+            // would prefer to get rid of this but it needs to be wrapped in something
+            <Containers
+            {...provided2.draggableProps}
+            ref={provided2.innerRef}
+            >  
+ 
+        <Droppable droppableId={String(listID)} type="card">
               {(provided) => (
                 <div
                 ref={provided.innerRef}
                 {...provided.droppableProps}
                 style={styles.container}>
                     <div style={{position: "relative"}}>
-                        <h4 style={styles.title}>{title}</h4>
+                        <Title
+                        //make a list draggable by the title
+                        {...provided2.dragHandleProps}
+                        style={styles.title}>{title}
+                        </Title>
                         <Icon onClick={handleDeleteList} style={styles.buttonContainer}>close</Icon>
                     </div>
                     {cards.sort( 
                         //sort based on position
                         (cardA, cardB) => (cardA.position > cardB.position) ? 1 : -1)
-                            .map((card, index) => { 
+                            .map((card, index2) => { 
                                 //only cards that belong to that column
                                 if(card.column === listID){
                                     return (
                                     <CardItem title={card.title} description={card.description}
-                                        id = {card.id} index={index} key={card.id}/>)
+                                        id = {card.id} index={index2} key={card.id}/>)
                                 }; //end if
                             }
                         )}
@@ -69,6 +86,9 @@ function List({ title, listID }) {
                 </div>
             )}
         </Droppable>
+     </Containers>
+    )}
+    </Draggable>
     );
 }
 
