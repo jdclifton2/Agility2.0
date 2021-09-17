@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Member(models.Model):
     """This class models a member of the application.
 
@@ -101,15 +102,16 @@ class Column(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
+    position = models.PositiveIntegerField(null=True, blank=False)
+
         
     class Meta:
         verbose_name = 'List'
         verbose_name_plural = 'Lists'
+        ordering = ('position',)
 
     def __str__(self):
         return f'{self.title}'
-
-        
 
 
 class Card(models.Model):
@@ -145,8 +147,7 @@ class Card(models.Model):
     __str__(self)
         ToString method.
     """
-    
-    
+
     column = models.ForeignKey(Column, on_delete=models.CASCADE, null=True, related_name= 'cards')
     title = models.CharField(max_length=128)
     description = models.TextField(blank=True)
@@ -168,11 +169,10 @@ class Card(models.Model):
     
     position = models.PositiveIntegerField(null=True, blank=False)
 
-
     class Meta:
         verbose_name = 'Card'
         verbose_name_plural = 'Cards'
-
+        ordering = ('position',)
 
     def __str__(self):
         return f'{self.id}'
@@ -199,7 +199,6 @@ class Project(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     label = models.CharField(max_length=128, blank=True)
-
 
     def __str__(self):
         return f'{self.id}'

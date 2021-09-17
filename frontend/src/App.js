@@ -40,7 +40,7 @@ function App() {
     const [removedCard] = oldCards.splice(result.source.index, 1);
     //change the column
     removedCard.column = Number(newCol);
-    //removedCard.position = result.destination.position;
+    removedCard.position = Number(result.destination.index);
     console.log("dawg")
     console.log(result.destination)
 
@@ -49,7 +49,9 @@ function App() {
 
     const cardKey = removedCard.id;
     //update database
-    axios.put('http://localhost:8000/api/cards/' + String(cardKey) + "/", removedCard)
+    let server = 'http://localhost:8000/api/cards/';
+    
+    axios.put( server + String(cardKey) + "/", removedCard)
     .then(res => console.log(res.data));
 
     setCards(oldCards);

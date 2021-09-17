@@ -10,7 +10,7 @@ import AddCard from './AddCard';
 
 function ActionButton({listID}) {
     const [state, setState] = useState({modalOpen: false})
-    const modalClosed = () => setState({modalOpen: false})
+    const modalclosed = () => setState({modalOpen: false})
 
     return (
         <div>
@@ -27,10 +27,10 @@ function ActionButton({listID}) {
             </div>
 
             <AddCard
-                modalClosed={modalClosed}
+                modalClosed={modalclosed}
                 listID={listID}
                 show={state.modalOpen}
-                onHide={modalClosed}
+                onHide={modalclosed}
             />
         </div>
     )

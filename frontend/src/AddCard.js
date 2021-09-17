@@ -15,10 +15,10 @@ function AddCard(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         // card gets put at the bottom by default 
-        // let pos = 0;
-        // if(cards.length > 0){
-        //     pos = cards.length - 1;
-        // }
+        let pos = 0;
+        if(cards.length > 0){
+            pos = cards.length - 1;
+        }
         // console.log("pos" + pos);
         // The data to be posted
         const cardJson = JSON.stringify({
@@ -26,6 +26,7 @@ function AddCard(props) {
             description: event.target.description.value,
             comment: event.target.comment.value,
             column: props.listID,
+            position: pos,
         });
 
         //required headers
@@ -63,7 +64,7 @@ function AddCard(props) {
                               <Form.Control
                                 type="text"
                                 name="title"
-                                autocomplete="off"
+                                autoComplete="off"
                                 required
                                 placeholder="Card Title"/>
                           </Form.Group>
@@ -73,7 +74,7 @@ function AddCard(props) {
                               <Form.Control style={{height: "100px", width: "700px"}}
                                 type="text"
                                 name="description"
-                                autocomplete="off"
+                                autoComplete="off"
                                 required
                                 placeholder="Card Description"/>
                           </Form.Group>
@@ -83,7 +84,7 @@ function AddCard(props) {
                               <Form.Control
                                 type="text"
                                 name="comment"
-                                autocomplete="off"
+                                autoComplete="off"
                                 required
                                 placeholder="Card comments"/>
                           </Form.Group>
