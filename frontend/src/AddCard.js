@@ -18,8 +18,9 @@ function AddCard(props) {
         let pos = 0;
         if(cards.length === 0){
             pos = 1;
-        } else {
-          pos = cards.length + 1
+        } else {  
+          //get position of final card. array is sorted by position so should be largest
+            pos = Number(cards[cards.length - 1].position) + 1 
         }
         // console.log("pos" + pos);
         // The data to be posted
