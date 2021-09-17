@@ -28,7 +28,7 @@ function App() {
    * for your drag operation.
    */
   const onDragEnd = (result) => {
-
+    let server = 'http://localhost:8000/api/cards/';
     // prevents app from crashing if draggable dragged to a non droppable
     if(!result.destination) return;
 
@@ -38,6 +38,11 @@ function App() {
 
     // grab the card to be removed
     const [removedCard] = oldCards.splice(result.source.index, 1);
+    //grab card currently in destination spot
+    const [destinationCard] = oldCards.splice(result.destination.index, 1);
+
+
+    
     //change the column
     removedCard.column = Number(newCol);
     removedCard.position = Number(result.destination.index);
@@ -47,12 +52,22 @@ function App() {
     //put updated card back in.
     oldCards.splice(result.destination.index, 0, removedCard);
 
+    if(destinationCard !== undefined){
+      destinationCard.position = Number(result.source.index);
+      oldCards.splice(result.destination.index, 0, destinationCard);
+      axios.put( server + String(destinationCard.id) + "/", destinationCard)
+      .then(res => console.log(res.data));
+    }
+    
+
     const cardKey = removedCard.id;
     //update database
-    let server = 'http://localhost:8000/api/cards/';
     
+
     axios.put( server + String(cardKey) + "/", removedCard)
     .then(res => console.log(res.data));
+
+
 
     setCards(oldCards);
 

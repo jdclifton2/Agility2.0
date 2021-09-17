@@ -16,8 +16,10 @@ function AddCard(props) {
         event.preventDefault();
         // card gets put at the bottom by default 
         let pos = 0;
-        if(cards.length > 0){
-            pos = cards.length - 1;
+        if(cards.length === 0){
+            pos = 1;
+        } else {
+          pos = cards.length + 1
         }
         // console.log("pos" + pos);
         // The data to be posted
