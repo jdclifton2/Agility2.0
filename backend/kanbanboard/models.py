@@ -1,3 +1,4 @@
+from authentication.models import CustomUser
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -25,7 +26,7 @@ class Member(models.Model):
         ToString method.
     """
     
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     data = models.CharField(max_length=2048, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
