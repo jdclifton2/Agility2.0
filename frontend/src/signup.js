@@ -1,4 +1,3 @@
-// djsr/frontend/src/components/signup.js
 import React, { Component } from "react";
 
 class Signup extends Component{
