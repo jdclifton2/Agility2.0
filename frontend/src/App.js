@@ -5,10 +5,13 @@ import ActionButton from "./ActionButton";
 import { DragDropContext } from 'react-beautiful-dnd';
 import axios from "axios";
 import logo from './logo.png';
-
 import {CardContext, CardProvider} from './CardContext';
 import {ListContext, ListsProvider} from './ListContext';
 import ListActionButton from './ListActionButton';
+import Login from "./login";
+import Signup from "./signup";
+import { Switch, Route, Link } from "react-router-dom";
+
 
 /**
  * The main component for our kanban board application. All other components are rendered from 
@@ -40,8 +43,6 @@ function App() {
     const [removedCard] = oldCards.splice(result.source.index, 1);
     //grab card currently in destination spot
     const [destinationCard] = oldCards.splice(result.destination.index, 1);
-
-
     
     //change the column
     removedCard.column = Number(newCol);
@@ -59,35 +60,46 @@ function App() {
       .then(res => console.log(res.data));
     }
     
-
     const cardKey = removedCard.id;
     //update database
-    
-
     axios.put( server + String(cardKey) + "/", removedCard)
     .then(res => console.log(res.data));
 
-
-
     setCards(oldCards);
-
   }
 
 
   return (
+    <div>
+    <img style={styles.logoContainer} src={logo} alt="Agility 2.0" width="90" height="90"/>
+    
+    <nav>
+    <Link className={"nav-link"} to={"/"}>Home</Link>
+    <Link className={"nav-link"} to={"/login/"}>Login</Link>
+    <Link className={"nav-link"} to={"/signup/"}>Signup</Link>
+    </nav>
+    <Switch>
+        <Route exact path={"/login/"} component={Login}/>
+        <Route exact path={"/signup/"} component={Signup}/>
+        <Route path={"/"} render={() => 
+        
         <DragDropContext onDragEnd= {onDragEnd} >
             <div className="App">
 
-              <img style={styles.logoContainer} src={logo} alt="Agility 2.0" width="90" height="90"/>
-              <h1 style={styles.titleContainer}>Team Purple Moscow </h1>
+            <h1 style={styles.titleContainer}>Team Purple Moscow </h1>
               <div style={styles.listsContainer}>
                 {lists.map(list =>
                   <List title={ list.title } cards={cards} listID={list.id} key={list.id}/>
                 )}
                 <ListActionButton />
-            </div>
-            </div>
-        </DragDropContext>
+                
+              </div>
+              </div>
+              </DragDropContext>
+              }/> 
+      </Switch>     
+      </div>
+        
   );
 }
 

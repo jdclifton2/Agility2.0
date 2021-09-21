@@ -2,19 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import {BrowserRouter} from 'react-router-dom'
 import { CardProvider } from './CardContext';
 import {ListsProvider} from "./ListContext";
 
 
 ReactDOM.render(
+  <BrowserRouter>
     <CardProvider>
         <ListsProvider>
           <React.StrictMode>
+          
             <App />
           </React.StrictMode>
         </ListsProvider>
-    </CardProvider>,
+    </CardProvider>
+    </BrowserRouter>,
+    
   document.getElementById('root')
 );
 
