@@ -1,6 +1,7 @@
 from authentication.models import CustomUser
 from django.db import models
 from django.contrib.auth.models import User
+from django_ordered_field import OrderedField
 
 
 class Member(models.Model):
@@ -103,7 +104,7 @@ class Column(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
-    position = models.PositiveIntegerField(null=True, blank=False)
+    position = OrderedField()
 
         
     class Meta:
@@ -168,7 +169,7 @@ class Card(models.Model):
 
     is_done = models.BooleanField(default=False)
     
-    position = models.PositiveIntegerField(null=True, blank=False)
+    position = OrderedField(update_auto_now=True)
 
     class Meta:
         verbose_name = 'Card'

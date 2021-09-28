@@ -21,7 +21,7 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CardList(generics.ListCreateAPIView):
-   queryset = Card.objects.all()
+   queryset = Card.objects.all().order_by('position')
    serializer_class = CardSerializer
 
 

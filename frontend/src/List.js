@@ -50,7 +50,7 @@ function List({ title, listID}) {
                     {cards.sort( 
                         //sort based on position
                         (cardA, cardB) => (cardA.position > cardB.position) ? 1 : -1)
-                            .map((card, index) => { 
+                        .map((card, index) => { 
                                 //only cards that belong to that column
                                 if(card.column === listID){
                                     return (
