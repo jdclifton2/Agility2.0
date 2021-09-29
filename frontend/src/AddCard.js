@@ -88,7 +88,6 @@ function AddCard(props) {
                                 type="text"
                                 name="comment"
                                 autoComplete="off"
-                                required
                                 placeholder="Card comments"/>
                           </Form.Group>
 

@@ -24,8 +24,6 @@ function List({ title, listID}) {
             return list.id !== listID;
         })
 
-// sort by value
-
         fetch(`http://localhost:8000/api/columns/${listID}/`, { method: 'DELETE'})
             .then(() => setLists(newState));
     }

@@ -73,11 +73,11 @@ function App() {
     <div>
     <img style={styles.logoContainer} src={logo} alt="Agility 2.0" width="90" height="90"/>
     
-    <nav>
+    {/* <nav>
     <Link className={"nav-link"} to={"/"}>Home</Link>
     <Link className={"nav-link"} to={"/login/"}>Login</Link>
     <Link className={"nav-link"} to={"/signup/"}>Signup</Link>
-    </nav>
+    </nav> */}
     <Switch>
         <Route exact path={"/login/"} component={Login}/>
         <Route exact path={"/signup/"} component={Signup}/>
