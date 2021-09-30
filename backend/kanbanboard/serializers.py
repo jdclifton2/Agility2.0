@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Member
-        fields = ['id', 'title', 'created_at', 'updated_at', 'is_public', 'avatar']
+        fields = ['user', 'created_at', 'updated_at', 'avatar']
 
 
 class CardSerializer(serializers.ModelSerializer):
