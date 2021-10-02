@@ -17,7 +17,7 @@ function AddCard(props) {
         // card gets put at the bottom by default 
         let pos = 0;
         if(cards.length === 0){
-            pos = 1;
+            pos = 0;
         } else {  
           //get position of final card. array is sorted by position so should be largest
             pos = Number(cards[cards.length - 1].position) + 1 

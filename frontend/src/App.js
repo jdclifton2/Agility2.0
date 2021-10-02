@@ -41,13 +41,12 @@ function App() {
 
     // grab the card to be removed
     const [removedCard] = oldCards.splice(result.source.index, 1);
-    //grab card currently in destination spot
+    // //grab card currently in destination spot
     const [destinationCard] = oldCards.splice(result.destination.index, 1);
     
     //change the column
     removedCard.column = Number(newCol);
     removedCard.position = Number(result.destination.index);
-    console.log("dawg")
     console.log(result.destination)
 
     //put updated card back in.
@@ -62,8 +61,8 @@ function App() {
     
     const cardKey = removedCard.id;
     //update database
-    // axios.put( server + String(cardKey) + "/", removedCard)
-    // .then(res => console.log(res.data));
+    axios.put( server + String(cardKey) + "/", removedCard)
+    .then(res => console.log(res.data));
 
     setCards(oldCards);
   }
