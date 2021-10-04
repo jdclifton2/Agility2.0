@@ -5,9 +5,9 @@ from .serializers import BoardSerializer, CardSerializer, ColumnSerializer, User
 class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     
-    permission_classes = [
-        permissions.AllowAny
-    ]
+    # permission_classes = [
+    #     permissions.AllowAny
+    # ]
 
     serializer_class = BoardSerializer
 
@@ -15,9 +15,9 @@ class BoardViewSet(viewsets.ModelViewSet):
 class CardViewSet(viewsets.ModelViewSet):
     queryset = Card.objects.all()
     
-    permission_classes = [
-        permissions.AllowAny
-    ]
+    # permission_classes = [
+    #     permissions.AllowAny
+    # ]
 
     serializer_class = CardSerializer
 
@@ -25,9 +25,9 @@ class CardViewSet(viewsets.ModelViewSet):
 class ColumnViewSet(viewsets.ModelViewSet):
     queryset = Column.objects.all()
     
-    permission_classes = [
-        permissions.AllowAny
-    ]
+    # permission_classes = [
+    #     permissions.AllowAny
+    # ]
 
     serializer_class = ColumnSerializer
 
@@ -36,8 +36,8 @@ class ColumnViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = Member.objects.all()
     
-    permission_classes = [
-        permissions.AllowAny
-    ]
+    # permission_classes = [
+    #     permissions.AllowAny
+    # ]
 
     serializer_class = UserSerializer

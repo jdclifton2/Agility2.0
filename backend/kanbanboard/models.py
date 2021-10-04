@@ -66,7 +66,7 @@ class Board(models.Model):
         ToString method.
     """
     title = models.CharField(max_length=128)
-    owner = models.ForeignKey(Member, related_name='members',
+    owner = models.ForeignKey(Member, related_name='boards',
                               on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True, verbose_name='LAST UPDATE')
@@ -103,6 +103,9 @@ class Column(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True)
+
+    # owner = models.ForeignKey(Member, related_name='columns',
+    #                           on_delete=models.CASCADE)
 
     position = OrderedField()
 
@@ -170,6 +173,9 @@ class Card(models.Model):
     is_done = models.BooleanField(default=False)
     
     position = OrderedField(update_auto_now=True)
+
+    # owner = models.ForeignKey(Member, related_name='cards',
+    #                           on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Card'

@@ -11,7 +11,7 @@ import ListActionButton from './ListActionButton';
 import Login from "./login";
 import Signup from "./signup";
 import { Switch, Route, Link } from "react-router-dom";
-
+import Navigation from './Navigation';
 
 /**
  * The main component for our kanban board application. All other components are rendered from 
@@ -70,13 +70,8 @@ function App() {
 
   return (
     <div>
-    <img style={styles.logoContainer} src={logo} alt="Agility 2.0" width="90" height="90"/>
-    
-    <nav>
-    <Link className={"nav-link"} to={"/"}>Home</Link>
-    <Link className={"nav-link"} to={"/login/"}>Login</Link>
-    <Link className={"nav-link"} to={"/signup/"}>Signup</Link>
-    </nav>
+    {/* <img style={styles.logoContainer} src={logo} alt="Agility 2.0" width="90" height="90"/> */}
+    <Navigation/>
     <Switch>
         <Route exact path={"/login/"} component={Login}/>
         <Route exact path={"/signup/"} component={Signup}/>
@@ -84,8 +79,9 @@ function App() {
         
         <DragDropContext onDragEnd= {onDragEnd} >
             <div className="App">
-
-            <h1 style={styles.titleContainer}>Team Purple Moscow </h1>
+              <div>
+                {/* <h1 style={styles.titleContainer}>Team Purple Moscow </h1> */}
+              </div>
               <div style={styles.listsContainer}>
                 {lists.map(list =>
                   <List title={ list.title } cards={cards} listID={list.id} key={list.id}/>
@@ -97,7 +93,7 @@ function App() {
               </DragDropContext>
               }/> 
       </Switch>     
-      </div>
+    </div>
         
   );
 }
