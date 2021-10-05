@@ -2,43 +2,43 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Member(models.Model):
-    """This class models a member of the application.
+# class Member(models.Model):
+#     """This class models a member of the application.
 
 
-    Attributes
-    ----------
-    user:
-        Djangos built in user authentication class. 
-    data : str
-        Any data that needs to be stored for the member.
-    created_at : DateTime
-        When the member was created.
-    updated_at : DateTime
-        When the member was updated.
-    avatar : ImageField
-        the members avatar.
+#     Attributes
+#     ----------
+#     user:
+#         Djangos built in user authentication class. 
+#     data : str
+#         Any data that needs to be stored for the member.
+#     created_at : DateTime
+#         When the member was created.
+#     updated_at : DateTime
+#         When the member was updated.
+#     avatar : ImageField
+#         the members avatar.
 
-    Methods
-    -------
-    __str__(self)
-        ToString method.
-    """
+#     Methods
+#     -------
+#     __str__(self)
+#         ToString method.
+#     """
     
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    data = models.CharField(max_length=2048, null=True)
+#     user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+#     data = models.CharField(max_length=2048, null=True)
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now_add=True)
 
-    avatar = models.ImageField(upload_to="photos/", blank=True)
+#     avatar = models.ImageField(upload_to="photos/", blank=True)
 
-    #team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='teams')
+#     #team = models.ForeignKey(Team, on_delete=models.CASCADE, related_name='teams')
 
 
-    def __str__(self):
-        template = ' {0.user}'
-        return template.format(self)
+    # def __str__(self):
+    #     template = ' {0.user}'
+    #     return template.format(self)
 
 
 class Board(models.Model):
@@ -64,7 +64,7 @@ class Board(models.Model):
         ToString method.
     """
     title = models.CharField(max_length=128)
-    owner = models.ForeignKey(Member, related_name='members',
+    owner = models.ForeignKey('auth.User', related_name='boards',
                               on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True, verbose_name='LAST UPDATE')
@@ -103,6 +103,9 @@ class Column(models.Model):
     updated_at = models.DateTimeField(auto_now_add=True)
 
     position = models.PositiveIntegerField(null=True, blank=False)
+
+    owner = models.ForeignKey('auth.User', related_name='columns',
+                              on_delete=models.CASCADE)
 
         
     class Meta:
@@ -169,6 +172,9 @@ class Card(models.Model):
     
     position = models.PositiveIntegerField(null=True, blank=False)
 
+    owner = models.ForeignKey('auth.User', related_name='cards',
+        on_delete=models.CASCADE)
+
     class Meta:
         verbose_name = 'Card'
         verbose_name_plural = 'Cards'
@@ -199,6 +205,6 @@ class Project(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     label = models.CharField(max_length=128, blank=True)
-
+    
     def __str__(self):
         return f'{self.id}'

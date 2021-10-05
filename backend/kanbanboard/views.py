@@ -5,9 +5,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from kanbanboard.serializers import BoardSerializer, CardSerializer, UserSerializer, ColumnSerializer
-from .models import Member, Board, Column, Card
+from .models import Board, Column, Card
 from rest_framework import generics
 from rest_framework import renderers
+from django.contrib.auth.models import User
 
 
 class BoardList(generics.ListCreateAPIView):
@@ -21,7 +22,7 @@ class BoardDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class CardList(generics.ListCreateAPIView):
-   queryset = Card.objects.all()
+   queryset = Card.objects.all().order_by('position')
    serializer_class = CardSerializer
 
 
@@ -40,12 +41,12 @@ class ColumnDetail(generics.RetrieveUpdateDestroyAPIView):
    serializer_class = ColumnSerializer
 
 
-class MemberList(generics.ListAPIView):
-   queryset = Member.objects.all()
-   serializer_class = UserSerializer   
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
-class MemberDetail(generics.RetrieveUpdateDestroyAPIView):
-   queryset = Member.objects.all()
-   serializer_class = UserSerializer
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 

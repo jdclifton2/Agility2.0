@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from kanbanboard.models import Member, Board, Column, Card
+from kanbanboard.models import User, Board, Column, Card
 # Register your models here.
 
 
@@ -68,12 +68,12 @@ class ColumnAdmin(admin.ModelAdmin):
 
 
 
-class MemberAdmin(admin.ModelAdmin):
-    """ This class changes what is displayed on the admin page for the member class. 
-    """
-    list_display = ('user', 'created_at', 'updated_at')
+# class MemberAdmin(admin.ModelAdmin):
+#     """ This class changes what is displayed on the admin page for the member class. 
+#     """
+#     list_display = ('user', 'created_at', 'updated_at')
 
-    empty_value_display = "UNSET"
+#     empty_value_display = "UNSET"
 
 
 
@@ -128,7 +128,7 @@ class CardAdmin(admin.ModelAdmin):
     actions_on_bottom = True
 
 
-admin.site.register(Member, MemberAdmin)
+# admin.site.register(Member, MemberAdmin)
 #passing description class
 admin.site.register(Board, BoardAdmin)
 admin.site.register(Column, ColumnAdmin)
